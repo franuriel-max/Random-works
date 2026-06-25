@@ -1,0 +1,2026 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>UNIZIK Smart Campus — Digital Companion Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@500;600;700;800&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   UNIZIK SMART CAMPUS — DESIGN TOKENS
+   Palette: Deep Academic Blue / White / Elegant Gold / Soft Gray
+   Type: Poppins (display) · Manrope (ui/labels) · Inter (body)
+   ========================================================= */
+:root{
+  --navy-950:#071326;
+  --navy-900:#0A2247;
+  --navy-800:#11315F;
+  --navy-700:#1A4480;
+  --navy-100:#E7ECF6;
+  --navy-50:#F4F7FC;
+  --gold-600:#A9821E;
+  --gold-500:#C9A227;
+  --gold-300:#E5C766;
+  --gold-100:#F8EFD2;
+  --gray-50:#F6F7F9;
+  --gray-100:#EEF1F4;
+  --gray-200:#E1E6EC;
+  --gray-400:#98A3B0;
+  --gray-600:#5B6776;
+  --ink:#0E1B2C;
+  --white:#FFFFFF;
+  --r-sm:8px;
+  --r-md:14px;
+  --r-lg:22px;
+  --shadow-sm:0 2px 10px rgba(10,34,71,.08);
+  --shadow-md:0 14px 36px rgba(10,34,71,.16);
+  --shadow-gold:0 10px 28px rgba(201,162,39,.28);
+  --font-d:'Poppins',sans-serif;
+  --font-u:'Manrope',sans-serif;
+  --font-b:'Inter',sans-serif;
+  --container:1180px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--font-b);
+  color:var(--ink);
+  background:var(--gray-50);
+  -webkit-font-smoothing:antialiased;
+  line-height:1.55;
+  overflow-x:hidden;
+}
+img,svg{display:block}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
+input,textarea,select{font:inherit;color:inherit}
+ul{list-style:none}
+.wrap{max-width:var(--container);margin:0 auto;padding:0 28px}
+.icon svg{display:block}
+
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;scroll-behavior:auto !important}
+}
+
+/* ---------- Typography helpers ---------- */
+.eyebrow{
+  font-family:var(--font-u);
+  font-weight:700;
+  font-size:12.5px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--gold-600);
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+}
+.eyebrow::before{content:"";width:18px;height:2px;background:var(--gold-500);display:inline-block;border-radius:2px}
+h1,h2,h3,h4{font-family:var(--font-d);color:var(--navy-900);font-weight:600;line-height:1.18;letter-spacing:-.01em}
+.section-head{max-width:640px;margin-bottom:40px}
+.section-head h2{font-size:clamp(26px,3.4vw,38px);margin-top:10px}
+.section-head p{color:var(--gray-600);margin-top:12px;font-size:15.5px}
+
+/* ---------- Buttons ---------- */
+.btn{
+  font-family:var(--font-u);
+  font-weight:700;
+  font-size:14.5px;
+  padding:13px 24px;
+  border-radius:10px;
+  display:inline-flex;
+  align-items:center;
+  gap:9px;
+  transition:transform .18s ease, box-shadow .18s ease, background .18s ease, color .18s ease, border-color .18s ease;
+  white-space:nowrap;
+}
+.btn-gold{background:linear-gradient(135deg,var(--gold-500),var(--gold-600));color:var(--navy-950);box-shadow:var(--shadow-gold)}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 16px 34px rgba(201,162,39,.36)}
+.btn-navy{background:var(--navy-900);color:#fff}
+.btn-navy:hover{background:var(--navy-800);transform:translateY(-2px)}
+.btn-ghost{background:transparent;border:1.5px solid rgba(255,255,255,.4);color:#fff}
+.btn-ghost:hover{background:rgba(255,255,255,.1);border-color:#fff}
+.btn-outline{background:#fff;border:1.5px solid var(--gray-200);color:var(--navy-900)}
+.btn-outline:hover{border-color:var(--navy-800);background:var(--navy-50)}
+.btn-sm{padding:9px 16px;font-size:13px;border-radius:8px}
+.btn-block{width:100%;justify-content:center}
+
+/* ---------- Header / Nav ---------- */
+.site-header{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  padding:18px 0;
+  transition:background .3s ease, box-shadow .3s ease, padding .3s ease, backdrop-filter .3s ease;
+}
+.site-header .wrap{display:flex;align-items:center;justify-content:space-between}
+.site-header.scrolled{
+  background:rgba(10,34,71,.78);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  box-shadow:0 6px 24px rgba(7,19,38,.18);
+  padding:12px 0;
+}
+.brand{display:flex;align-items:center;gap:11px}
+.brand-mark{
+  width:42px;height:42px;border-radius:11px;
+  background:linear-gradient(150deg,var(--navy-800),var(--navy-950));
+  display:flex;align-items:center;justify-content:center;
+  position:relative;flex-shrink:0;
+  box-shadow:inset 0 0 0 1px rgba(201,162,39,.5);
+}
+.brand-mark svg{color:var(--gold-400, var(--gold-300))}
+.brand-text{display:flex;flex-direction:column;line-height:1.05}
+.brand-text strong{font-family:var(--font-d);font-weight:700;font-size:16.5px;color:#fff;letter-spacing:.01em}
+.brand-text span{font-family:var(--font-u);font-weight:600;font-size:10.5px;letter-spacing:.16em;color:var(--gold-300);text-transform:uppercase}
+
+.main-nav{display:flex;align-items:center;gap:6px}
+.main-nav a{
+  font-family:var(--font-u);font-weight:600;font-size:14px;color:rgba(255,255,255,.78);
+  padding:9px 15px;border-radius:8px;position:relative;transition:color .2s ease;
+}
+.main-nav a:hover{color:#fff}
+.main-nav a.active{color:#fff}
+.main-nav a.active::after{
+  content:"";position:absolute;left:15px;right:15px;bottom:3px;height:2px;background:var(--gold-500);border-radius:2px;
+}
+.nav-actions{display:flex;align-items:center;gap:12px}
+.menu-toggle{display:none;width:42px;height:42px;border-radius:9px;background:rgba(255,255,255,.08);align-items:center;justify-content:center;color:#fff}
+
+@media (max-width:900px){
+  .main-nav{
+    position:fixed;top:0;right:0;height:100vh;width:78%;max-width:320px;
+    background:var(--navy-950);flex-direction:column;align-items:stretch;
+    padding:100px 26px 26px;gap:4px;
+    transform:translateX(100%);transition:transform .35s ease;
+    box-shadow:-20px 0 50px rgba(0,0,0,.3);
+  }
+  .main-nav.open{transform:translateX(0)}
+  .main-nav a{padding:14px 12px;font-size:15.5px;border-bottom:1px solid rgba(255,255,255,.06)}
+  .menu-toggle{display:flex}
+  .nav-actions .btn-gold{display:none}
+}
+
+/* ---------- Views / routing ---------- */
+.view{display:none}
+.view.active{display:block;animation:viewIn .45s ease both}
+@keyframes viewIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+/* ---------- Hero ---------- */
+.hero{
+  position:relative;
+  background:radial-gradient(120% 140% at 15% -10%, var(--navy-700) 0%, var(--navy-900) 45%, var(--navy-950) 100%);
+  color:#fff;padding:168px 0 96px;overflow:hidden;
+}
+.hero::before{
+  content:"";position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
+  background-size:48px 48px;
+  mask-image:radial-gradient(70% 70% at 30% 20%, #000 10%, transparent 75%);
+  -webkit-mask-image:radial-gradient(70% 70% at 30% 20%, #000 10%, transparent 75%);
+}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center;position:relative}
+.hero-eyebrow{color:var(--gold-300);background:rgba(201,162,39,.12);border:1px solid rgba(201,162,39,.35);
+  padding:7px 14px;border-radius:30px;font-family:var(--font-u);font-weight:700;font-size:12px;letter-spacing:.1em;text-transform:uppercase;display:inline-block}
+.hero h1{font-size:clamp(34px,5vw,54px);color:#fff;margin-top:20px;letter-spacing:-.02em}
+.hero h1 .accent{color:var(--gold-400, var(--gold-300))}
+.hero-words{display:flex;flex-wrap:wrap;gap:8px 14px;margin-top:18px;font-family:var(--font-d);font-weight:600;font-size:clamp(16px,2vw,21px)}
+.hero-words span{color:rgba(255,255,255,.92)}
+.hero-words span.gold{color:var(--gold-300)}
+.hero p.lede{color:rgba(255,255,255,.68);max-width:480px;margin-top:20px;font-size:15.5px}
+.hero-cta{display:flex;gap:14px;margin-top:34px;flex-wrap:wrap}
+
+/* signature element: route diagram */
+.route-diagram{position:relative;height:300px}
+.route-svg{width:100%;height:100%}
+.route-path{
+  fill:none;stroke:var(--gold-500);stroke-width:2;stroke-dasharray:4 7;stroke-linecap:round;
+  stroke-dashoffset:600;animation:drawPath 2.6s ease forwards .4s;
+}
+@keyframes drawPath{to{stroke-dashoffset:0}}
+.route-node{transform-origin:center;animation:nodePop .5s ease both}
+.route-node-label{font-family:var(--font-u);font-weight:700;font-size:11.5px;fill:#fff}
+.route-node-sub{font-family:var(--font-u);font-weight:600;font-size:8.5px;fill:var(--gold-300);letter-spacing:.08em;text-transform:uppercase}
+
+.hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,.1);
+  border:1px solid rgba(255,255,255,.12);border-radius:var(--r-md);overflow:hidden;margin-top:64px;
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);}
+.stat-cell{background:rgba(255,255,255,.04);padding:22px 18px;text-align:left}
+.stat-num{font-family:var(--font-d);font-weight:700;font-size:clamp(22px,2.6vw,30px);color:#fff}
+.stat-label{font-family:var(--font-u);font-weight:600;font-size:11.5px;color:rgba(255,255,255,.55);text-transform:uppercase;letter-spacing:.08em;margin-top:4px}
+
+@media (max-width:900px){
+  .hero-grid{grid-template-columns:1fr}
+  .route-diagram{height:240px;order:-1}
+  .hero-stats{grid-template-columns:repeat(2,1fr)}
+}
+
+/* ---------- Generic sections ---------- */
+.section{padding:88px 0}
+.section.alt{background:var(--white)}
+.section.tint{background:var(--navy-50)}
+
+/* Feature preview cards */
+.feature-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+.feature-card{
+  background:#fff;border:1px solid var(--gray-200);border-radius:var(--r-lg);padding:28px 24px;
+  transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;position:relative;overflow:hidden;
+}
+.feature-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-md);border-color:transparent}
+.feature-card .ic-box{
+  width:46px;height:46px;border-radius:12px;background:var(--navy-900);color:var(--gold-300);
+  display:flex;align-items:center;justify-content:center;margin-bottom:18px;
+}
+.feature-card h3{font-size:17.5px}
+.feature-card p{color:var(--gray-600);font-size:13.8px;margin-top:9px}
+.feature-card .go{margin-top:18px;font-family:var(--font-u);font-weight:700;font-size:13px;color:var(--navy-800);display:inline-flex;align-items:center;gap:6px}
+.feature-card .go svg{transition:transform .2s ease}
+.feature-card:hover .go svg{transform:translateX(4px)}
+
+@media (max-width:980px){.feature-grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:560px){.feature-grid{grid-template-columns:1fr}}
+
+/* Value props (philosophy) */
+.value-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.value-card{padding:6px}
+.value-card .num{font-family:var(--font-d);font-weight:700;color:var(--navy-100);font-size:38px;line-height:1}
+.value-card h4{font-size:16.5px;margin-top:10px}
+.value-card p{color:var(--gray-600);font-size:13.8px;margin-top:8px}
+@media (max-width:780px){.value-grid{grid-template-columns:1fr}}
+
+/* CTA banner */
+.cta-banner{
+  background:linear-gradient(120deg,var(--navy-900),var(--navy-950));
+  border-radius:var(--r-lg);padding:50px 44px;color:#fff;
+  display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;
+  position:relative;overflow:hidden;
+}
+.cta-banner::after{content:"";position:absolute;right:-40px;top:-40px;width:200px;height:200px;border-radius:50%;
+  background:radial-gradient(circle,rgba(201,162,39,.25),transparent 70%)}
+.cta-banner h3{color:#fff;font-size:24px;max-width:420px}
+.cta-banner p{color:rgba(255,255,255,.6);margin-top:8px;font-size:14px}
+
+/* ---------- Search / filter bar ---------- */
+.toolbar{display:flex;gap:14px;flex-wrap:wrap;align-items:center;margin-bottom:28px}
+.search-box{
+  flex:1;min-width:240px;display:flex;align-items:center;gap:10px;background:#fff;
+  border:1.5px solid var(--gray-200);border-radius:12px;padding:13px 16px;color:var(--gray-600);
+  transition:border-color .2s ease, box-shadow .2s ease;
+}
+.search-box:focus-within{border-color:var(--navy-700);box-shadow:0 0 0 4px rgba(26,68,128,.1)}
+.search-box svg{flex-shrink:0;color:var(--gray-400)}
+.search-box input{flex:1;border:none;outline:none;background:transparent;font-size:14.5px;color:var(--ink)}
+.chip-row{display:flex;gap:8px;flex-wrap:wrap}
+.chip{
+  font-family:var(--font-u);font-weight:600;font-size:12.8px;padding:9px 16px;border-radius:30px;
+  background:#fff;border:1.5px solid var(--gray-200);color:var(--gray-600);transition:all .2s ease;
+}
+.chip:hover{border-color:var(--navy-700);color:var(--navy-900)}
+.chip.active{background:var(--navy-900);border-color:var(--navy-900);color:#fff}
+
+/* ---------- Location cards ---------- */
+.loc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.loc-card{background:#fff;border:1px solid var(--gray-200);border-radius:var(--r-lg);overflow:hidden;transition:transform .25s ease, box-shadow .25s ease}
+.loc-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-md)}
+.photo-block{
+  height:148px;position:relative;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;color:#fff;
+}
+.photo-block .pb-icon{width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,.16);display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+.photo-block span{font-family:var(--font-u);font-weight:700;font-size:11px;letter-spacing:.06em;text-transform:uppercase;opacity:.85}
+.pb-grad-1{background:linear-gradient(135deg,var(--navy-800),var(--navy-950))}
+.pb-grad-2{background:linear-gradient(135deg,var(--navy-700),var(--navy-900))}
+.pb-grad-3{background:linear-gradient(135deg,#2A4F8A,var(--navy-950))}
+.pb-grad-4{background:linear-gradient(135deg,var(--gold-600),var(--navy-900))}
+.loc-card .body{padding:20px}
+.tag{display:inline-block;font-family:var(--font-u);font-weight:700;font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--gold-600);background:var(--gold-100);padding:4px 10px;border-radius:6px}
+.loc-card h3{font-size:16.5px;margin-top:11px}
+.loc-card .meta{display:flex;align-items:center;gap:6px;color:var(--gray-600);font-size:12.5px;margin-top:6px}
+.loc-card p.desc{color:var(--gray-600);font-size:13.5px;margin-top:10px}
+.loc-card .actions{display:flex;gap:8px;margin-top:18px}
+
+@media (max-width:980px){.loc-grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:620px){.loc-grid{grid-template-columns:1fr}}
+
+/* ---------- Academic Hub ---------- */
+.academic-layout{display:grid;grid-template-columns:300px 1fr;gap:28px;align-items:start}
+.filter-panel{
+  background:#fff;border:1px solid var(--gray-200);border-radius:var(--r-lg);padding:24px;position:sticky;top:104px;
+}
+.filter-panel h4{font-size:14px;font-family:var(--font-u);text-transform:uppercase;letter-spacing:.08em;color:var(--gray-600);margin-bottom:16px}
+.form-group{margin-bottom:16px}
+.form-group label{display:block;font-family:var(--font-u);font-weight:700;font-size:12.5px;color:var(--navy-900);margin-bottom:7px}
+.form-group select, .form-group input, .form-group textarea{
+  width:100%;border:1.5px solid var(--gray-200);border-radius:9px;padding:11px 13px;font-size:14px;outline:none;
+  transition:border-color .2s ease;background:#fff;
+}
+.form-group select:focus, .form-group input:focus, .form-group textarea:focus{border-color:var(--navy-700)}
+.form-group textarea{resize:vertical;min-height:84px}
+.hint{font-size:12px;color:var(--gray-400);margin-top:14px;line-height:1.5}
+
+.course-panel{background:#fff;border:1px solid var(--gray-200);border-radius:var(--r-lg);padding:30px;min-height:420px}
+.course-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap;border-bottom:1px solid var(--gray-100);padding-bottom:20px;margin-bottom:22px}
+.course-head .code{font-family:var(--font-d);font-weight:700;font-size:26px;color:var(--navy-900)}
+.course-head .meta-line{color:var(--gray-600);font-size:13.5px;margin-top:5px}
+.tab-row{display:flex;gap:4px;flex-wrap:wrap;background:var(--gray-50);padding:5px;border-radius:11px;margin-bottom:20px}
+.tab-btn{font-family:var(--font-u);font-weight:700;font-size:12.5px;padding:9px 14px;border-radius:8px;color:var(--gray-600);white-space:nowrap}
+.tab-btn.active{background:#fff;color:var(--navy-900);box-shadow:var(--shadow-sm)}
+.res-item{display:flex;align-items:flex-start;gap:14px;padding:16px 4px;border-bottom:1px solid var(--gray-100)}
+.res-item:last-child{border-bottom:none}
+.res-ic{width:38px;height:38px;border-radius:9px;background:var(--navy-100);color:var(--navy-800);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.res-item h5{font-size:14.5px;color:var(--navy-900);font-weight:600}
+.res-item .res-meta{font-size:12px;color:var(--gray-400);margin-top:4px}
+.res-item .res-desc{font-size:13px;color:var(--gray-600);margin-top:5px}
+.res-item .res-go{margin-left:auto;flex-shrink:0}
+.empty-state{text-align:center;padding:60px 20px;color:var(--gray-400)}
+.empty-state .ic-box{width:54px;height:54px;border-radius:14px;background:var(--navy-50);color:var(--navy-700);display:flex;align-items:center;justify-content:center;margin:0 auto 16px}
+.empty-state h4{color:var(--navy-900);font-size:16px}
+.empty-state p{font-size:13.5px;margin-top:6px;max-width:320px;margin-left:auto;margin-right:auto}
+
+@media (max-width:900px){.academic-layout{grid-template-columns:1fr}.filter-panel{position:static}}
+
+/* ---------- Tutor cards ---------- */
+.tutor-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.tutor-card{background:#fff;border:1px solid var(--gray-200);border-radius:var(--r-lg);padding:24px;transition:transform .25s ease,box-shadow .25s ease}
+.tutor-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-md)}
+.tutor-top{display:flex;gap:14px;align-items:center}
+.avatar{width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-family:var(--font-d);font-weight:700;font-size:17px;flex-shrink:0}
+.av-1{background:linear-gradient(135deg,var(--navy-800),var(--navy-950))}
+.av-2{background:linear-gradient(135deg,#3A5FA6,var(--navy-900))}
+.av-3{background:linear-gradient(135deg,var(--gold-600),var(--navy-900))}
+.av-4{background:linear-gradient(135deg,var(--navy-700),#0E1B2C)}
+.tutor-card h3{font-size:16px}
+.tutor-card .skill{font-family:var(--font-u);font-weight:700;font-size:12px;color:var(--gold-600);margin-top:2px}
+.rating{display:flex;align-items:center;gap:5px;color:var(--gold-500);font-size:12.5px;font-weight:700;margin-top:8px;font-family:var(--font-u)}
+.rating span.count{color:var(--gray-400);font-weight:600}
+.tutor-card p.bio{color:var(--gray-600);font-size:13.3px;margin-top:13px}
+.tutor-stats{display:flex;gap:16px;margin-top:14px;padding-top:14px;border-top:1px solid var(--gray-100)}
+.tutor-stats div{font-size:12px;color:var(--gray-500)}
+.tutor-stats strong{display:block;color:var(--navy-900);font-family:var(--font-d);font-size:15px}
+.tutor-card .actions{margin-top:18px}
+
+.reco-strip{display:flex;gap:18px;overflow-x:auto;padding-bottom:8px;margin-bottom:44px}
+.reco-strip::-webkit-scrollbar{height:6px}
+.reco-strip::-webkit-scrollbar-thumb{background:var(--gray-200);border-radius:4px}
+.reco-card{min-width:260px;background:var(--navy-900);border-radius:var(--r-lg);padding:22px;color:#fff;flex-shrink:0;position:relative;overflow:hidden}
+.reco-card::after{content:"";position:absolute;right:-30px;bottom:-30px;width:120px;height:120px;border-radius:50%;background:radial-gradient(circle,rgba(201,162,39,.25),transparent 70%)}
+.reco-card .skill{color:var(--gold-300)}
+.reco-card p.bio{color:rgba(255,255,255,.62)}
+.reco-card .tutor-stats{border-top-color:rgba(255,255,255,.12)}
+.reco-card .tutor-stats strong{color:#fff}
+
+@media (max-width:980px){.tutor-grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:620px){.tutor-grid{grid-template-columns:1fr}}
+
+/* ---------- Marketplace ---------- */
+.market-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.market-card{background:#fff;border:1px solid var(--gray-200);border-radius:var(--r-lg);overflow:hidden;transition:transform .25s ease,box-shadow .25s ease}
+.market-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-md)}
+.market-card .photo-block{height:120px}
+.market-card .body{padding:16px}
+.market-card h3{font-size:14.5px;margin-top:8px;min-height:38px}
+.price{font-family:var(--font-d);font-weight:700;color:var(--navy-900);font-size:17px;margin-top:6px}
+.market-card p.desc{font-size:12.5px;color:var(--gray-600);margin-top:6px;min-height:32px}
+.market-card .actions{margin-top:14px}
+
+@media (max-width:980px){.market-grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:560px){.market-grid{grid-template-columns:1fr}}
+
+/* ---------- Modal ---------- */
+.modal-overlay{
+  position:fixed;inset:0;background:rgba(7,19,38,.6);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);
+  display:flex;align-items:center;justify-content:center;z-index:300;opacity:0;pointer-events:none;transition:opacity .25s ease;padding:20px;
+}
+.modal-overlay.open{opacity:1;pointer-events:auto}
+.modal{
+  background:#fff;border-radius:var(--r-lg);max-width:560px;width:100%;max-height:88vh;overflow-y:auto;padding:32px;
+  box-shadow:var(--shadow-md);transform:translateY(16px) scale(.98);transition:transform .25s ease;
+}
+.modal-overlay.open .modal{transform:translateY(0) scale(1)}
+.modal-close{position:absolute;top:18px;right:18px}
+.modal-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:22px;position:relative}
+.modal-head h3{font-size:20px}
+.modal-head .x-btn{width:34px;height:34px;border-radius:9px;background:var(--gray-100);display:flex;align-items:center;justify-content:center;color:var(--gray-600);flex-shrink:0}
+.modal-head .x-btn:hover{background:var(--gray-200)}
+.modal-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.modal .photo-block{height:160px;border-radius:var(--r-md);margin-bottom:20px}
+.modal-info-row{display:flex;align-items:center;gap:10px;color:var(--gray-600);font-size:13.5px;margin-top:8px}
+.modal-info-row svg{flex-shrink:0;color:var(--gray-400)}
+.modal-actions{display:flex;gap:10px;margin-top:24px}
+
+/* ---------- Toast ---------- */
+.toast{
+  position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);
+  background:var(--navy-950);color:#fff;padding:14px 22px;border-radius:11px;font-family:var(--font-u);font-weight:600;font-size:13.5px;
+  display:flex;align-items:center;gap:10px;box-shadow:var(--shadow-md);z-index:500;opacity:0;pointer-events:none;transition:all .3s ease;
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast svg{color:var(--gold-400, var(--gold-300));flex-shrink:0}
+
+/* ---------- Footer ---------- */
+.site-footer{background:var(--navy-950);color:rgba(255,255,255,.55);padding:64px 0 28px}
+.footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px}
+.footer-grid h5{font-family:var(--font-u);font-weight:700;font-size:13px;color:#fff;text-transform:uppercase;letter-spacing:.07em;margin-bottom:16px}
+.footer-grid ul li{margin-bottom:10px;font-size:13.8px}
+.footer-grid ul li a:hover{color:#fff}
+.footer-brand p{font-size:13.5px;margin-top:14px;max-width:280px;color:rgba(255,255,255,.45)}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-top:50px;padding-top:24px;border-top:1px solid rgba(255,255,255,.08);font-size:12.5px}
+@media (max-width:820px){.footer-grid{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.footer-grid{grid-template-columns:1fr}}
+
+/* ---------- Assistant ---------- */
+.assistant-fab{
+  position:fixed;bottom:26px;right:26px;width:62px;height:62px;border-radius:50%;
+  background:linear-gradient(135deg,var(--gold-500),var(--gold-600));color:var(--navy-950);
+  display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow-gold);z-index:250;
+}
+.assistant-fab::before{
+  content:"";position:absolute;inset:-6px;border-radius:50%;border:1.5px solid var(--gold-400,var(--gold-500));opacity:.6;
+  animation:pulseRing 2.4s ease-out infinite;
+}
+@keyframes pulseRing{0%{transform:scale(.85);opacity:.55}100%{transform:scale(1.5);opacity:0}}
+.assistant-fab:hover{transform:scale(1.06)}
+
+.assistant-panel{
+  position:fixed;bottom:102px;right:26px;width:392px;max-width:calc(100vw - 32px);height:540px;max-height:74vh;
+  background:#fff;border-radius:20px;box-shadow:var(--shadow-md);z-index:260;display:flex;flex-direction:column;overflow:hidden;
+  transform:translateY(16px) scale(.97);opacity:0;pointer-events:none;transition:all .25s ease;
+}
+.assistant-panel.open{transform:translateY(0) scale(1);opacity:1;pointer-events:auto}
+.ap-head{background:var(--navy-950);color:#fff;padding:18px 20px;display:flex;align-items:center;gap:12px;flex-shrink:0}
+.ap-head .ic{width:38px;height:38px;border-radius:10px;background:rgba(201,162,39,.18);color:var(--gold-300);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ap-head .tt strong{font-family:var(--font-d);font-size:14.5px;display:block}
+.ap-head .tt span{font-size:11px;color:rgba(255,255,255,.5);display:flex;align-items:center;gap:5px}
+.ap-head .tt span::before{content:"";width:6px;height:6px;border-radius:50%;background:#4ADE80;display:inline-block}
+.ap-head .x-btn{margin-left:auto;width:32px;height:32px;border-radius:8px;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;color:#fff;flex-shrink:0}
+.ap-head .x-btn:hover{background:rgba(255,255,255,.16)}
+
+.ap-body{flex:1;overflow-y:auto;padding:18px 16px;display:flex;flex-direction:column;gap:14px;background:var(--gray-50)}
+.ap-body::-webkit-scrollbar{width:5px}
+.ap-body::-webkit-scrollbar-thumb{background:var(--gray-200);border-radius:4px}
+.msg{max-width:86%;animation:msgIn .3s ease both}
+@keyframes msgIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.msg.bot{align-self:flex-start}
+.msg.user{align-self:flex-end}
+.msg .bubble{padding:11px 14px;border-radius:13px;font-size:13.6px;line-height:1.5}
+.msg.bot .bubble{background:#fff;border:1px solid var(--gray-200);color:var(--ink);border-top-left-radius:4px}
+.msg.user .bubble{background:var(--navy-900);color:#fff;border-top-right-radius:4px}
+.msg-card{background:#fff;border:1px solid var(--gray-200);border-radius:13px;padding:13px;margin-top:8px;display:flex;gap:11px;align-items:flex-start}
+.msg-card .ic-box{width:36px;height:36px;border-radius:9px;background:var(--navy-100);color:var(--navy-800);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.msg-card .mc-tt{font-family:var(--font-u);font-weight:700;font-size:13px;color:var(--navy-900)}
+.msg-card .mc-sub{font-size:11.8px;color:var(--gray-500);margin-top:2px}
+.msg-card .mc-link{font-family:var(--font-u);font-weight:700;font-size:11.5px;color:var(--gold-600);margin-top:6px;display:inline-flex;align-items:center;gap:4px}
+.chip-suggest{display:flex;flex-wrap:wrap;gap:7px;margin-top:6px}
+.chip-suggest button{font-family:var(--font-u);font-weight:600;font-size:11.8px;padding:7px 12px;border-radius:30px;background:#fff;border:1.3px solid var(--gray-200);color:var(--navy-800)}
+.chip-suggest button:hover{border-color:var(--navy-700)}
+
+.ap-foot{padding:13px 14px;border-top:1px solid var(--gray-100);display:flex;gap:9px;align-items:center;background:#fff;flex-shrink:0}
+.ap-foot input{flex:1;border:1.5px solid var(--gray-200);border-radius:11px;padding:11px 14px;font-size:13.6px;outline:none}
+.ap-foot input:focus{border-color:var(--navy-700)}
+.ap-foot button{width:42px;height:42px;border-radius:11px;background:var(--navy-900);color:var(--gold-300);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ap-foot button:hover{background:var(--navy-800)}
+
+@media (max-width:480px){
+  .assistant-panel{right:14px;bottom:88px;width:calc(100vw - 28px);height:68vh;max-height:68vh}
+  .assistant-fab{right:18px;bottom:18px}
+}
+
+/* =========================================================
+   PRELOADER (opening / boot animation)
+   ========================================================= */
+#preloader{
+  position:fixed;inset:0;z-index:1000;
+  background:radial-gradient(120% 140% at 15% -10%, var(--navy-700) 0%, var(--navy-900) 45%, var(--navy-950) 100%);
+  display:flex;align-items:center;justify-content:center;flex-direction:column;
+  transition:opacity .6s ease, visibility .6s ease;
+}
+#preloader::before{
+  content:"";position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
+  background-size:48px 48px;
+  mask-image:radial-gradient(70% 70% at 50% 40%, #000 10%, transparent 75%);
+  -webkit-mask-image:radial-gradient(70% 70% at 50% 40%, #000 10%, transparent 75%);
+}
+#preloader.fade-out{opacity:0;visibility:hidden;pointer-events:none}
+.pl-mark{
+  position:relative;width:84px;height:84px;border-radius:20px;
+  background:linear-gradient(150deg,var(--navy-800),var(--navy-950));
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:inset 0 0 0 1px rgba(201,162,39,.5), 0 20px 50px rgba(7,19,38,.5);
+}
+.pl-mark svg{color:var(--gold-300);position:relative;z-index:1}
+.pl-mark .pl-path{
+  fill:none;stroke:var(--gold-400,var(--gold-300));stroke-width:1.8;
+  stroke-dasharray:90;stroke-dashoffset:90;
+  animation:plDraw 1.6s ease forwards .15s;
+}
+@keyframes plDraw{to{stroke-dashoffset:0}}
+.pl-ring{
+  position:absolute;inset:-14px;border-radius:26px;
+  border:1.5px solid rgba(201,162,39,.35);
+  animation:plRing 2.2s ease-in-out infinite;
+}
+.pl-ring.r2{inset:-28px;border-color:rgba(201,162,39,.18);animation-delay:.3s}
+@keyframes plRing{0%,100%{transform:scale(.94);opacity:.5}50%{transform:scale(1.04);opacity:1}}
+.pl-word{
+  margin-top:30px;font-family:var(--font-d);font-weight:700;color:#fff;font-size:18px;
+  letter-spacing:.01em;display:flex;gap:2px;
+}
+.pl-word span{display:inline-block;opacity:0;transform:translateY(8px);animation:plLetter .5s ease forwards}
+.pl-sub{
+  margin-top:8px;font-family:var(--font-u);font-weight:600;font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--gold-300);opacity:0;animation:plFade .6s ease forwards 1.1s;
+}
+@keyframes plLetter{to{opacity:1;transform:translateY(0)}}
+@keyframes plFade{to{opacity:1}}
+.pl-bar{
+  margin-top:34px;width:180px;height:3px;border-radius:3px;background:rgba(255,255,255,.12);overflow:hidden;
+}
+.pl-bar-fill{
+  height:100%;width:0%;border-radius:3px;
+  background:linear-gradient(90deg,var(--gold-500),var(--gold-300));
+  animation:plBar 1.7s ease forwards .2s;
+}
+@keyframes plBar{to{width:100%}}
+@media (prefers-reduced-motion: reduce){
+  #preloader{transition:none}
+  .pl-path,.pl-ring,.pl-word span,.pl-sub,.pl-bar-fill{animation:none !important;opacity:1;stroke-dashoffset:0;width:100%}
+}
+
+/* =========================================================
+   PROFILE / AUTH
+   ========================================================= */
+.auth-shell{
+  min-height:100vh;display:flex;align-items:center;justify-content:center;padding:152px 20px 60px;
+  background:radial-gradient(120% 140% at 85% -10%, var(--navy-700) 0%, var(--navy-900) 45%, var(--navy-950) 100%);
+  position:relative;overflow:hidden;
+}
+.auth-shell::before{
+  content:"";position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+  background-size:48px 48px;
+  mask-image:radial-gradient(65% 65% at 75% 15%, #000 10%, transparent 75%);
+  -webkit-mask-image:radial-gradient(65% 65% at 75% 15%, #000 10%, transparent 75%);
+}
+.auth-card{
+  position:relative;width:100%;max-width:420px;background:#fff;border-radius:var(--r-lg);
+  box-shadow:0 30px 70px rgba(7,19,38,.4);padding:38px 34px 32px;animation:viewIn .5s ease both;
+}
+.auth-head{text-align:center;margin-bottom:26px}
+.auth-head .brand-mark{margin:0 auto 16px}
+.auth-head h2{font-size:23px}
+.auth-head p{color:var(--gray-600);font-size:13.8px;margin-top:6px}
+.auth-tabs{display:flex;gap:4px;background:var(--gray-50);padding:5px;border-radius:11px;margin-bottom:24px}
+.auth-tab{flex:1;text-align:center;font-family:var(--font-u);font-weight:700;font-size:13px;padding:10px;border-radius:8px;color:var(--gray-600)}
+.auth-tab.active{background:#fff;color:var(--navy-900);box-shadow:var(--shadow-sm)}
+.auth-form .form-group label{display:flex;justify-content:space-between;align-items:center}
+.auth-form .form-group label a{color:var(--gold-600);font-weight:700;font-size:11.5px}
+.input-icon{position:relative}
+.input-icon svg{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--gray-400)}
+.input-icon input{padding-left:38px}
+.auth-row-between{display:flex;justify-content:space-between;align-items:center;margin:-4px 0 18px;font-size:13px;color:var(--gray-600)}
+.auth-row-between label{display:flex;align-items:center;gap:7px;cursor:pointer}
+.auth-row-between input[type=checkbox]{width:15px;height:15px;accent-color:var(--navy-800)}
+.auth-divider{display:flex;align-items:center;gap:12px;margin:22px 0;color:var(--gray-400);font-size:12px;font-family:var(--font-u);font-weight:600}
+.auth-divider::before,.auth-divider::after{content:"";flex:1;height:1px;background:var(--gray-200)}
+.btn-google{
+  width:100%;justify-content:center;background:#fff;border:1.5px solid var(--gray-200);color:var(--navy-900);
+}
+.btn-google:hover{background:var(--gray-50);border-color:var(--gray-200);transform:translateY(-2px)}
+.auth-switch{text-align:center;margin-top:22px;font-size:13.5px;color:var(--gray-600)}
+.auth-switch a{color:var(--gold-600);font-weight:700}
+.auth-err{
+  display:none;background:#FDEEEE;border:1px solid #F3C8C8;color:#B3261E;font-size:12.8px;border-radius:9px;
+  padding:10px 13px;margin-bottom:16px;font-family:var(--font-u);font-weight:600;
+}
+.auth-err.show{display:block}
+
+/* Logged-in profile dashboard */
+.profile-shell{padding-top:152px}
+.profile-banner{
+  background:radial-gradient(120% 140% at 15% -10%, var(--navy-700) 0%, var(--navy-900) 45%, var(--navy-950) 100%);
+  color:#fff;padding:46px 0 80px;position:relative;overflow:hidden;
+}
+.profile-banner::before{
+  content:"";position:absolute;inset:0;
+  background-image:linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px),linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
+  background-size:48px 48px;mask-image:radial-gradient(70% 70% at 30% 20%, #000 10%, transparent 75%);
+  -webkit-mask-image:radial-gradient(70% 70% at 30% 20%, #000 10%, transparent 75%);
+}
+.profile-head{position:relative;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.profile-avatar{
+  width:84px;height:84px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-d);font-weight:700;font-size:28px;color:#fff;flex-shrink:0;
+  background:linear-gradient(135deg,var(--gold-500),var(--gold-600));box-shadow:var(--shadow-gold);
+  border:3px solid rgba(255,255,255,.25);
+}
+.profile-head h2{color:#fff;font-size:25px}
+.profile-head .meta{color:rgba(255,255,255,.62);font-size:13.5px;margin-top:5px;display:flex;gap:14px;flex-wrap:wrap}
+.profile-head .meta span{display:inline-flex;align-items:center;gap:6px}
+.profile-card-wrap{margin-top:-44px;position:relative}
+.profile-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px}
+.profile-stat-card{background:#fff;border-radius:var(--r-lg);box-shadow:var(--shadow-md);padding:24px;text-align:center}
+.profile-stat-card .num{font-family:var(--font-d);font-weight:700;font-size:28px;color:var(--navy-900)}
+.profile-stat-card .lbl{font-family:var(--font-u);font-weight:600;font-size:11.5px;color:var(--gray-600);text-transform:uppercase;letter-spacing:.06em;margin-top:4px}
+.profile-panel{background:#fff;border:1px solid var(--gray-200);border-radius:var(--r-lg);padding:28px;margin-top:24px}
+.profile-panel h4{font-size:15px;margin-bottom:18px}
+.profile-row{display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid var(--gray-100)}
+.profile-row:last-child{border-bottom:none}
+.profile-row .lbl{font-family:var(--font-u);font-weight:700;font-size:12.5px;color:var(--gray-600);text-transform:uppercase;letter-spacing:.05em}
+.profile-row .val{font-size:14px;color:var(--navy-900);font-weight:600}
+.auth-method-badge{
+  display:inline-flex;align-items:center;gap:6px;font-family:var(--font-u);font-weight:700;font-size:11.5px;
+  padding:5px 11px;border-radius:20px;background:var(--navy-50);color:var(--navy-800);
+}
+.nav-avatar{
+  width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-d);font-weight:700;font-size:13.5px;color:var(--navy-950);flex-shrink:0;
+  background:linear-gradient(135deg,var(--gold-500),var(--gold-600));border:2px solid rgba(255,255,255,.3);
+}
+
+@media (max-width:760px){
+  .profile-grid{grid-template-columns:1fr}
+  .auth-card{padding:30px 24px 26px}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ PRELOADER ============ -->
+<div id="preloader">
+  <div class="pl-mark">
+    <div class="pl-ring"></div>
+    <div class="pl-ring r2"></div>
+    <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path class="pl-path" d="M12 3l9 4.5-9 4.5-9-4.5 9-4.5z"/>
+      <path class="pl-path" d="M5 10.5V16c0 1.4 3.1 3 7 3s7-1.6 7-3v-5.5"/>
+      <path class="pl-path" d="M21 7.5V14"/>
+    </svg>
+  </div>
+  <div class="pl-word" id="plWord"></div>
+  <div class="pl-sub">Digital Companion Platform</div>
+  <div class="pl-bar"><div class="pl-bar-fill"></div></div>
+</div>
+
+<!-- ============ HEADER ============ -->
+<header class="site-header" id="siteHeader">
+  <div class="wrap">
+    <a href="#home" class="brand" data-route="home">
+      <span class="brand-mark">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 4.5-9 4.5-9-4.5 9-4.5z"/><path d="M5 10.5V16c0 1.4 3.1 3 7 3s7-1.6 7-3v-5.5"/><path d="M21 7.5V14"/></svg>
+      </span>
+      <span class="brand-text"><strong>UNIZIK</strong><span>Smart Campus</span></span>
+    </a>
+    <nav class="main-nav" id="mainNav">
+      <a href="#home" data-route="home">Home</a>
+      <a href="#navigation" data-route="navigation">Campus Navigation</a>
+      <a href="#academic" data-route="academic">Academic Hub</a>
+      <a href="#skills" data-route="skills">Skill Exchange</a>
+      <a href="#marketplace" data-route="marketplace">Marketplace</a>
+    </nav>
+    <div class="nav-actions">
+      <button class="btn btn-gold btn-sm" onclick="openAssistant()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="8" width="14" height="11" rx="3"/><circle cx="9.5" cy="13.5" r="1.1"/><circle cx="14.5" cy="13.5" r="1.1"/><path d="M12 8V4"/></svg>
+        Ask Assistant
+      </button>
+      <a href="#profile" data-route="profile" id="navProfileBtn" class="btn btn-outline btn-sm" style="background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.25);color:#fff">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.6"/><path d="M5 20c0-3.6 3.1-6.5 7-6.5s7 2.9 7 6.5"/></svg>
+        Sign In
+      </a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ============ HOME ============ -->
+<section id="view-home" class="view active">
+  <div class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="hero-eyebrow">Nnamdi Azikiwe University · Digital Companion</span>
+        <h1>UNIZIK <span class="accent">Smart Campus</span></h1>
+        <div class="hero-words">
+          <span class="gold">Navigate.</span><span>Learn.</span><span class="gold">Connect.</span><span>Grow.</span>
+        </div>
+        <p class="lede">One platform for wayfinding, academic resources, peer mentorship and campus commerce — built around how students actually move through university life.</p>
+        <div class="hero-cta">
+          <a href="#navigation" data-route="navigation" class="btn btn-gold">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-7.5 7-12a7 7 0 1 0-14 0c0 4.5 7 12 7 12z"/><circle cx="12" cy="9" r="2.3"/></svg>
+            Explore Campus Map
+          </a>
+          <a href="#academic" data-route="academic" class="btn btn-ghost">
+            Open Academic Hub
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="route-diagram">
+        <svg class="route-svg" viewBox="0 0 360 300">
+          <path class="route-path" d="M40,240 C90,170 60,90 130,70 C190,52 200,140 260,120 C300,108 300,60 320,40" />
+          <g class="route-node" style="animation-delay:1.2s">
+            <circle cx="40" cy="240" r="9" fill="#0A2247" stroke="#C9A227" stroke-width="2"/>
+            <text x="56" y="244" class="route-node-label">Navigate</text>
+            <text x="56" y="256" class="route-node-sub">Campus Map</text>
+          </g>
+          <g class="route-node" style="animation-delay:1.6s">
+            <circle cx="130" cy="70" r="9" fill="#0A2247" stroke="#C9A227" stroke-width="2"/>
+            <text x="146" y="66" class="route-node-label">Learn</text>
+            <text x="146" y="78" class="route-node-sub">Academic Hub</text>
+          </g>
+          <g class="route-node" style="animation-delay:2.0s">
+            <circle cx="260" cy="120" r="9" fill="#0A2247" stroke="#C9A227" stroke-width="2"/>
+            <text x="276" y="116" class="route-node-label">Connect</text>
+            <text x="276" y="128" class="route-node-sub">Skill Exchange</text>
+          </g>
+          <g class="route-node" style="animation-delay:2.4s">
+            <circle cx="320" cy="40" r="9" fill="#C9A227" stroke="#fff" stroke-width="2"/>
+            <text x="296" y="24" class="route-node-label">Grow</text>
+            <text x="296" y="60" class="route-node-sub">Marketplace</text>
+          </g>
+        </svg>
+      </div>
+    </div>
+
+    <div class="wrap">
+      <div class="hero-stats" id="heroStats">
+        <div class="stat-cell"><div class="stat-num" data-target="0">0</div><div class="stat-label">Campus Locations Mapped</div></div>
+        <div class="stat-cell"><div class="stat-num" data-target="0">0</div><div class="stat-label">Academic Resources</div></div>
+        <div class="stat-cell"><div class="stat-num" data-target="0">0</div><div class="stat-label">Verified Peer Tutors</div></div>
+        <div class="stat-cell"><div class="stat-num" data-target="0">0</div><div class="stat-label">Active Marketplace Listings</div></div>
+      </div>
+    </div>
+  </div>
+
+  <section class="section alt">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Platform Modules</span>
+        <h2>Everything campus life runs on, in one place</h2>
+        <p>Four connected modules designed around real student workflows — from finding a lecture hall to finding a buyer for last semester's textbook.</p>
+      </div>
+      <div class="feature-grid">
+        <a href="#navigation" data-route="navigation" class="feature-card">
+          <span class="ic-box"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-7.5 7-12a7 7 0 1 0-14 0c0 4.5 7 12 7 12z"/><circle cx="12" cy="9" r="2.3"/></svg></span>
+          <h3>Smart Campus Navigation</h3>
+          <p>Search any faculty, hostel, or office and get directions, photos and building info instantly.</p>
+          <span class="go">Explore the map <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+        <a href="#academic" data-route="academic" class="feature-card">
+          <span class="ic-box"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5z"/><path d="M4 18.5V5.5"/></svg></span>
+          <h3>Academic Hub</h3>
+          <p>Faculty → Department → Level → Course. Notes, past questions and assignments, properly organised.</p>
+          <span class="go">Browse resources <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+        <a href="#skills" data-route="skills" class="feature-card">
+          <span class="ic-box"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><path d="M2 20c0-3.3 3.1-6 7-6s7 2.7 7 6"/><circle cx="17" cy="9" r="2.3"/><path d="M16 13.2c2.4.6 4 2.4 4 4.8"/></svg></span>
+          <h3>Skill Exchange</h3>
+          <p>Learn design, code, or public speaking from a verified coursemate — or teach what you know.</p>
+          <span class="go">Find a tutor <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+        <a href="#marketplace" data-route="marketplace" class="feature-card">
+          <span class="ic-box"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9l1-5h14l1 5"/><path d="M4 9h16v10H4z"/><path d="M9 19v-5h6v5"/></svg></span>
+          <h3>Student Marketplace</h3>
+          <p>A simple listing board for textbooks, electronics and hostel essentials — student to student.</p>
+          <span class="go">View listings <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section tint">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Design Philosophy</span>
+        <h2>Built like a university platform, not a student project</h2>
+        <p>UNIZIK Smart Campus is engineered around three commitments that shape every screen.</p>
+      </div>
+      <div class="value-grid">
+        <div class="value-card"><div class="num">01</div><h4>Academic Excellence</h4><p>Information architecture follows the real Faculty → Department → Level → Course structure of the university — nothing is flattened for convenience.</p></div>
+        <div class="value-card"><div class="num">02</div><h4>Innovation &amp; Intelligence</h4><p>A campus assistant reads structured data to answer wayfinding, academic and marketplace questions — architected for future AI integration.</p></div>
+        <div class="value-card"><div class="num">03</div><h4>Leadership &amp; Future Readiness</h4><p>Every dataset — locations, courses, tutors, listings — is built as JSON-ready records so the institution can extend it without a rebuild.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt">
+    <div class="wrap">
+      <div class="cta-banner">
+        <div>
+          <h3>Have a question right now?</h3>
+          <p>The Smart Campus Assistant can locate buildings, pull course resources, or recommend a tutor — instantly.</p>
+        </div>
+        <button class="btn btn-gold" onclick="openAssistant()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="8" width="14" height="11" rx="3"/><circle cx="9.5" cy="13.5" r="1.1"/><circle cx="14.5" cy="13.5" r="1.1"/><path d="M12 8V4"/></svg>
+          Ask the Assistant
+        </button>
+      </div>
+    </div>
+  </section>
+</section>
+
+<!-- ============ CAMPUS NAVIGATION ============ -->
+<section id="view-navigation" class="view">
+  <div class="section" style="padding-top:152px">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Smart Campus Navigation</span>
+        <h2>Find any building in seconds</h2>
+        <p>Search the campus directory below. Locations currently use placeholder photos and descriptions — real coordinates, photography and Google Maps links are added per building through a single JSON record.</p>
+      </div>
+
+      <div class="toolbar">
+        <div class="search-box">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+          <input id="locSearch" type="text" placeholder="Search for a faculty, hostel, library, office…" oninput="renderLocations()">
+        </div>
+      </div>
+      <div class="chip-row" id="locChips" style="margin-bottom:28px"></div>
+
+      <div class="loc-grid" id="locGrid"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ACADEMIC HUB ============ -->
+<section id="view-academic" class="view">
+  <div class="section" style="padding-top:152px">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Academic Hub</span>
+        <h2>Faculty → Department → Level → Course</h2>
+        <p>A structured academic resource centre — not just a notes dump. Drill into any course for lecture notes, summaries, assignments, past questions, study resources and announcements.</p>
+      </div>
+
+      <div class="toolbar">
+        <div class="search-box">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+          <input id="resSearch" type="text" placeholder="Search resources by title, course code or department…" oninput="onResourceSearch()">
+        </div>
+        <button class="btn btn-navy btn-sm" onclick="openUploadModal()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 17V5M6 11l6-6 6 6M4 19h16"/></svg>
+          Upload Resource
+        </button>
+      </div>
+
+      <div class="academic-layout">
+        <div class="filter-panel">
+          <h4>Browse by Structure</h4>
+          <div class="form-group">
+            <label>Faculty</label>
+            <select id="selFaculty" onchange="onFacultyChange()"></select>
+          </div>
+          <div class="form-group">
+            <label>Department</label>
+            <select id="selDept" onchange="onDeptChange()"></select>
+          </div>
+          <div class="form-group">
+            <label>Level</label>
+            <select id="selLevel" onchange="onLevelChange()"></select>
+          </div>
+          <div class="form-group">
+            <label>Course</label>
+            <select id="selCourse" onchange="onCourseChange()"></select>
+          </div>
+          <p class="hint">New faculties, departments and courses can be added by extending one JSON file — no layout changes required.</p>
+        </div>
+
+        <div class="course-panel" id="coursePanel"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SKILL EXCHANGE ============ -->
+<section id="view-skills" class="view">
+  <div class="section" style="padding-top:152px">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Skill Exchange</span>
+        <h2>Learn from a coursemate. Teach what you know.</h2>
+        <p>Peer tutors across campus, organised by skill category — from full-stack development to public speaking coaching.</p>
+      </div>
+
+      <h4 style="font-family:var(--font-u);font-size:13px;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-600);margin-bottom:16px">Recommended for you</h4>
+      <div class="reco-strip" id="recoStrip"></div>
+
+      <div class="toolbar">
+        <div class="search-box">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+          <input id="tutorSearch" type="text" placeholder="Search tutors by name or skill…" oninput="renderTutors()">
+        </div>
+      </div>
+      <div class="chip-row" id="skillChips" style="margin-bottom:28px"></div>
+
+      <div class="tutor-grid" id="tutorGrid"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MARKETPLACE ============ -->
+<section id="view-marketplace" class="view">
+  <div class="section" style="padding-top:152px">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Student Marketplace</span>
+        <h2>A campus listing board, not a store</h2>
+        <p>Textbooks, electronics, hostel essentials and services — list an item and connect directly with another student. No payments handled on the platform.</p>
+      </div>
+
+      <div class="toolbar">
+        <div class="search-box">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+          <input id="marketSearch" type="text" placeholder="Search listings…" oninput="renderListings()">
+        </div>
+        <button class="btn btn-navy btn-sm" onclick="openSellModal()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+          Sell an Item
+        </button>
+      </div>
+      <div class="chip-row" id="marketChips" style="margin-bottom:28px"></div>
+
+      <div class="market-grid" id="marketGrid"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROFILE / AUTH ============ -->
+<section id="view-profile" class="view">
+
+  <!-- Logged-out: auth card -->
+  <div class="auth-shell" id="authShell">
+    <div class="auth-card">
+      <div class="auth-head">
+        <span class="brand-mark" style="width:54px;height:54px;border-radius:14px">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 4.5-9 4.5-9-4.5 9-4.5z"/><path d="M5 10.5V16c0 1.4 3.1 3 7 3s7-1.6 7-3v-5.5"/><path d="M21 7.5V14"/></svg>
+        </span>
+        <h2 id="authTitle">Welcome back</h2>
+        <p id="authSubtitle">Sign in to your Smart Campus account</p>
+      </div>
+
+      <div class="auth-tabs">
+        <button class="auth-tab active" id="tabLogin" onclick="setAuthMode('login')">Sign In</button>
+        <button class="auth-tab" id="tabSignup" onclick="setAuthMode('signup')">Create Account</button>
+      </div>
+
+      <div class="auth-err" id="authErr"></div>
+
+      <form class="auth-form" id="authForm" onsubmit="submitAuth(event)">
+        <div class="form-group" id="nameField" style="display:none">
+          <label>Full Name</label>
+          <div class="input-icon">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.6"/><path d="M5 20c0-3.6 3.1-6.5 7-6.5s7 2.9 7 6.5"/></svg>
+            <input type="text" id="authName" placeholder="Chiamaka Eze">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <div class="input-icon">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3 7l9 6 9-6"/></svg>
+            <input type="email" id="authEmail" placeholder="you@unizik.edu.ng" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Password <a href="#" id="forgotLink" onclick="toast('Password reset link sent (demo).');return false;">Forgot?</a></label>
+          <div class="input-icon">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2.5"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+            <input type="password" id="authPassword" placeholder="••••••••" required minlength="6">
+          </div>
+        </div>
+
+        <div class="auth-row-between" id="rememberRow">
+          <label><input type="checkbox" id="authRemember" checked> Remember me</label>
+          <span id="authHint">New here? <a href="#" onclick="setAuthMode('signup');return false;" style="color:var(--gold-600);font-weight:700">Create an account</a></span>
+        </div>
+
+        <button type="submit" class="btn btn-gold btn-block" id="authSubmitBtn">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          Sign In
+        </button>
+      </form>
+
+      <div class="auth-divider">OR CONTINUE WITH</div>
+
+      <button class="btn btn-google" onclick="googleAuth()">
+        <svg width="17" height="17" viewBox="0 0 24 24"><path fill="#4285F4" d="M23.5 12.27c0-.82-.07-1.6-.2-2.36H12v4.51h6.47c-.28 1.5-1.13 2.78-2.41 3.63v3.02h3.91c2.28-2.1 3.53-5.2 3.53-8.8z"/><path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.97-2.92l-3.91-3.02c-1.07.72-2.45 1.15-4.06 1.15-3.13 0-5.78-2.11-6.73-4.96H1.2v3.11C3.2 21.3 7.26 24 12 24z"/><path fill="#FBBC05" d="M5.27 14.25A7.2 7.2 0 0 1 4.89 12c0-.78.14-1.54.38-2.25V6.64H1.2A11.93 11.93 0 0 0 0 12c0 1.93.46 3.76 1.2 5.36l4.07-3.11z"/><path fill="#EA4335" d="M12 4.78c1.77 0 3.35.61 4.6 1.8l3.46-3.46C17.94 1.18 15.24 0 12 0 7.26 0 3.2 2.7 1.2 6.64l4.07 3.11C6.22 6.9 8.87 4.78 12 4.78z"/></svg>
+        Continue with Google
+      </button>
+
+      <p class="auth-switch" id="authSwitch">
+        Don't have an account? <a href="#" onclick="setAuthMode('signup');return false;">Create one</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- Logged-in: profile dashboard -->
+  <div class="profile-shell" id="profileShell" style="display:none">
+    <div class="profile-banner">
+      <div class="wrap profile-head">
+        <div class="profile-avatar" id="pAvatar">U</div>
+        <div>
+          <h2 id="pName">Student Name</h2>
+          <div class="meta">
+            <span id="pEmail">you@unizik.edu.ng</span>
+            <span id="pMethodWrap"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wrap profile-card-wrap">
+      <div class="profile-grid">
+        <div class="profile-stat-card">
+          <div class="num" id="pSavedCount">0</div>
+          <div class="lbl">Saved Locations</div>
+        </div>
+        <div class="profile-stat-card">
+          <div class="num" id="pListingCount">0</div>
+          <div class="lbl">My Listings</div>
+        </div>
+        <div class="profile-stat-card">
+          <div class="num" id="pJoinedDays">0</div>
+          <div class="lbl">Days on Campus</div>
+        </div>
+      </div>
+
+      <div class="profile-panel">
+        <h4>Account Details</h4>
+        <div class="profile-row">
+          <span class="lbl">Full Name</span>
+          <span class="val" id="rowName">—</span>
+        </div>
+        <div class="profile-row">
+          <span class="lbl">Email Address</span>
+          <span class="val" id="rowEmail">—</span>
+        </div>
+        <div class="profile-row">
+          <span class="lbl">Sign-in Method</span>
+          <span class="val" id="rowMethod">—</span>
+        </div>
+        <div class="profile-row">
+          <span class="lbl">Member Since</span>
+          <span class="val" id="rowSince">—</span>
+        </div>
+      </div>
+
+      <div class="profile-panel">
+        <h4>Account Actions</h4>
+        <div class="modal-actions" style="margin-top:0">
+          <button class="btn btn-outline" onclick="toast('Profile editing coming soon (demo).')">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>
+            Edit Profile
+          </button>
+          <button class="btn btn-navy" onclick="logoutUser()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>
+            Sign Out
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#home" data-route="home" class="brand">
+          <span class="brand-mark"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 4.5-9 4.5-9-4.5 9-4.5z"/><path d="M5 10.5V16c0 1.4 3.1 3 7 3s7-1.6 7-3v-5.5"/></svg></span>
+          <span class="brand-text"><strong>UNIZIK</strong><span>Smart Campus</span></span>
+        </a>
+        <p>A concept digital companion platform for Nnamdi Azikiwe University — built for wayfinding, academics, mentorship and campus commerce.</p>
+      </div>
+      <div>
+        <h5>Platform</h5>
+        <ul>
+          <li><a href="#navigation" data-route="navigation">Campus Navigation</a></li>
+          <li><a href="#academic" data-route="academic">Academic Hub</a></li>
+          <li><a href="#skills" data-route="skills">Skill Exchange</a></li>
+          <li><a href="#marketplace" data-route="marketplace">Marketplace</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Resources</h5>
+        <ul>
+          <li><a href="#" onclick="openAssistant();return false;">Smart Assistant</a></li>
+          <li><a href="#academic" data-route="academic">Past Questions</a></li>
+          <li><a href="#academic" data-route="academic">Upload a Resource</a></li>
+          <li><a href="#marketplace" data-route="marketplace">Sell an Item</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Contact</h5>
+        <ul>
+          <li>Student Affairs Complex</li>
+          <li>Awka, Anambra State</li>
+          <li>smartcampus@unizik.edu.ng</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 UNIZIK Smart Campus — Concept Prototype</span>
+      <span>Designed for Nnamdi Azikiwe University</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ============ ASSISTANT ============ -->
+<button class="assistant-fab" id="assistantFab" onclick="openAssistant()" aria-label="Open Smart Campus Assistant">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="8" width="14" height="11" rx="3"/><circle cx="9.5" cy="13.5" r="1.2"/><circle cx="14.5" cy="13.5" r="1.2"/><path d="M12 8V4"/><circle cx="12" cy="3" r="1.1"/></svg>
+</button>
+
+<div class="assistant-panel" id="assistantPanel">
+  <div class="ap-head">
+    <span class="ic"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="8" width="14" height="11" rx="3"/><circle cx="9.5" cy="13.5" r="1.1"/><circle cx="14.5" cy="13.5" r="1.1"/><path d="M12 8V4"/></svg></span>
+    <div class="tt"><strong>Smart Campus Assistant</strong><span>Reading from campus dataset</span></div>
+    <button class="x-btn" onclick="closeAssistant()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  </div>
+  <div class="ap-body" id="apBody"></div>
+  <div class="ap-foot">
+    <input id="apInput" type="text" placeholder="Ask about a building, course or tutor…" onkeydown="if(event.key==='Enter')sendAssistantMessage()">
+    <button onclick="sendAssistantMessage()" aria-label="Send">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4z"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- ============ MODAL ============ -->
+<div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this)closeModal()">
+  <div class="modal" id="modalBody"></div>
+</div>
+
+<!-- ============ TOAST ============ -->
+<div class="toast" id="toast"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg><span id="toastMsg"></span></div>
+
+<script>
+/* =================================================================
+   UNIZIK SMART CAMPUS — DATA LAYER
+   -----------------------------------------------------------------
+   These constants mirror the shape of future JSON files / API
+   responses (e.g. /data/locations.json, /data/academic.json,
+   /data/tutors.json, /data/marketplace.json). When a real backend
+   or admin CMS is connected, swap each constant for a fetch() call
+   — the render functions below don't care where the data comes
+   from, only its shape.
+   ================================================================= */
+
+const campusLocations = [
+  { id:'fac-engineering', name:'Faculty of Engineering', category:'Faculty', building:'Engineering Complex, North Campus',
+    short:'Electronic, Civil, Mechanical and Chemical Engineering departments.',
+    full:'The Faculty of Engineering houses the Departments of Electronic & Computer Engineering, Civil Engineering, Mechanical Engineering and Chemical Engineering, alongside teaching workshops and project laboratories.',
+    aliases:['engineering','coren','eng faculty','engr'], grad:'pb-grad-3', icon:'building' },
+  { id:'fac-science', name:'Faculty of Physical Sciences', category:'Faculty', building:'Science Complex, Main Campus',
+    short:'Computer Science, Physics, Mathematics and Geology.',
+    full:'Home to the Departments of Computer Science, Physics & Astronomy, Mathematics, Geology and Statistics, with general teaching laboratories on the ground floor.',
+    aliases:['science','physical science','computer science faculty','csc faculty'], grad:'pb-grad-1', icon:'building' },
+  { id:'library', name:'Nnamdi Azikiwe Centenary Library', category:'Library', building:'Centenary Complex',
+    short:'Main university library with reading halls and e-resources.',
+    full:'The main university library spans multiple reading floors, a digital resource centre, postgraduate study rooms and 24-hour reading halls during examination periods.',
+    aliases:['library','reading room','centenary'], grad:'pb-grad-2', icon:'book' },
+  { id:'senate', name:'Senate Building', category:'Administration', building:'Administrative Block',
+    short:"Vice-Chancellor's office and principal administrative units.",
+    full:"Principal administrative offices including the Vice-Chancellor's office, Registry, Senate Chamber and the offices of the Deputy Vice-Chancellors.",
+    aliases:['admin','administration','vc office','senate','registry'], grad:'pb-grad-4', icon:'building' },
+  { id:'ict', name:'ICT Centre', category:'Technology', building:'ICT Complex',
+    short:'Campus internet services, computer labs and ICT support.',
+    full:'Provides campus-wide internet infrastructure, open-access computer laboratories, the student ICT support desk and e-learning platform hosting.',
+    aliases:['ict','computer lab','internet','wifi'], grad:'pb-grad-1', icon:'compass' },
+  { id:'sports', name:'University Sports Complex', category:'Sports', building:'Sports Complex',
+    short:'Main stadium, basketball courts and indoor sports hall.',
+    full:'Includes the main football stadium, outdoor basketball and volleyball courts, an indoor sports hall and the university gymnasium.',
+    aliases:['stadium','sports','football field','basketball','gym'], grad:'pb-grad-3', icon:'pin' },
+  { id:'health', name:'University Health Centre', category:'Health', building:'Health Services Block',
+    short:'Primary student healthcare and emergency first response.',
+    full:'Offers primary healthcare for students and staff, a pharmacy, basic diagnostic services and an emergency first-response unit.',
+    aliases:['clinic','health centre','hospital','sick bay','medical'], grad:'pb-grad-2', icon:'pin' },
+  { id:'sug', name:'Student Affairs & SUG Building', category:'Student Life', building:'Student Life Complex',
+    short:'Student Union Government secretariat and student affairs.',
+    full:'Houses the Student Union Government secretariat, the Dean of Student Affairs office, and meeting rooms for registered student associations.',
+    aliases:['sug','student union','student affairs','dean of students'], grad:'pb-grad-4', icon:'building' },
+];
+
+const academicData = [
+  { id:'science', name:'Faculty of Physical Sciences', departments:[
+      { id:'csc', name:'Computer Science', courses:[
+          { code:'CSC201', title:'Data Structures & Algorithms', level:200 },
+          { code:'CSC301', title:'Operating Systems', level:300 },
+          { code:'CSC302', title:'Computer Architecture', level:300 },
+          { code:'CSC401', title:'Software Engineering', level:400 },
+        ]},
+      { id:'mth', name:'Mathematics', courses:[
+          { code:'MTH201', title:'Mathematical Methods I', level:200 },
+          { code:'MTH301', title:'Real Analysis', level:300 },
+        ]},
+    ]},
+  { id:'eng', name:'Faculty of Engineering', departments:[
+      { id:'ece', name:'Electronic & Computer Engineering', courses:[
+          { code:'ECE302', title:'Digital Electronics', level:300 },
+          { code:'ECE401', title:'Control Systems', level:400 },
+        ]},
+      { id:'cve', name:'Civil Engineering', courses:[
+          { code:'CVE201', title:'Engineering Surveying', level:200 },
+        ]},
+    ]},
+  { id:'ss', name:'Faculty of Social Sciences', departments:[
+      { id:'mac', name:'Mass Communication', courses:[
+          { code:'MAC202', title:'News Writing & Reporting', level:200 },
+        ]},
+      { id:'eco', name:'Economics', courses:[
+          { code:'ECO301', title:'Public Finance', level:300 },
+        ]},
+    ]},
+];
+
+const resourceTypes = [
+  { id:'notes', label:'Lecture Notes' },
+  { id:'summary', label:'Summaries' },
+  { id:'assignment', label:'Assignments' },
+  { id:'pastquestion', label:'Past Questions' },
+  { id:'study', label:'Study Resources' },
+  { id:'announcement', label:'Announcements' },
+];
+
+let resourceSeq = 1;
+function R(courseCode, type, title, uploader, date, fileType, description){
+  return { id:'res-'+(resourceSeq++), courseCode, type, title, uploader, date, fileType, description: description||'' };
+}
+let academicResources = [
+  R('CSC301','notes','Process Management & Scheduling — Full Notes','Dr. C. Eze','2026-03-12','PDF','Covers process states, context switching and scheduling queues.'),
+  R('CSC301','notes','Memory Management Lecture Slides','Dr. C. Eze','2026-03-19','PDF','Paging, segmentation and virtual memory fundamentals.'),
+  R('CSC301','summary','OS Midterm Summary Sheet','Chiamaka O. (300L Rep)','2026-03-25','PDF','Condensed revision sheet covering weeks 1–6.'),
+  R('CSC301','assignment','Assignment 2: CPU Scheduling Algorithms','Dr. C. Eze','2026-04-02','DOCX','Compare FCFS, SJF and Round Robin with worked examples.'),
+  R('CSC301','pastquestion','CSC301 Past Questions 2022–2024','Academic Hub Archive','2025-11-08','PDF','Three years of compiled examination questions.'),
+  R('CSC301','study','Recommended Reading: OS Concepts (Ch. 4–6)','Library Resource Desk','2026-02-20','Link','Supplementary chapters from the course reading list.'),
+  R('CSC301','announcement','CSC301 Test 2 moved to April 18','Course Coordinator','2026-04-10','Notice','Venue: Science Lecture Theatre II, 9:00am.'),
+  R('CSC201','notes','Linked Lists & Trees — Lecture Notes','Engr. F. Obi','2026-03-05','PDF','Worked examples on singly/doubly linked lists and binary trees.'),
+  R('CSC201','pastquestion','CSC201 Past Questions 2023','Academic Hub Archive','2025-10-14','PDF','Full past paper with marking guide.'),
+  R('ECE302','notes','Logic Gates & Boolean Algebra Notes','Engr. N. Umeh','2026-03-15','PDF','Foundational notes for the digital electronics module.'),
+  R('MAC202','assignment','Assignment 1: News Story Draft','Dr. I. Chukwu','2026-03-22','DOCX','Submit a 400-word hard news story on a campus event.'),
+];
+
+const skillCategories = ['Programming','Graphic Design','Video Editing','Writing','Public Speaking','Music'];
+const tutors = [
+  { id:'t1', name:'Adaeze Nwosu', skill:'Programming', rating:4.9, sessions:42, av:'av-1',
+    bio:'Full-stack web development (React, Node.js) and Python for absolute beginners.' },
+  { id:'t2', name:'Kelechi Obasi', skill:'Graphic Design', rating:4.8, sessions:35, av:'av-3',
+    bio:'Brand identity, poster design and Adobe Illustrator / Photoshop workflows.' },
+  { id:'t3', name:'Ifeoma Chukwu', skill:'Video Editing', rating:4.7, sessions:28, av:'av-2',
+    bio:'Premiere Pro and CapCut editing for reels, documentaries and event coverage.' },
+  { id:'t4', name:'Tobenna Eze', skill:'Writing', rating:4.9, sessions:51, av:'av-4',
+    bio:'Academic writing, technical reports and content writing for blogs.' },
+  { id:'t5', name:'Blessing Aniagor', skill:'Public Speaking', rating:4.6, sessions:19, av:'av-1',
+    bio:'Debate coaching, presentation skills and confident public delivery.' },
+  { id:'t6', name:'David Okafor', skill:'Music', rating:4.8, sessions:24, av:'av-2',
+    bio:'Guitar, piano basics and vocal training for beginners.' },
+];
+
+const marketCategories = ['Textbooks','Electronics','Hostel Essentials','Academic Materials','Services','Miscellaneous'];
+let listings = [
+  { id:'m1', title:'Fundamentals of Operating Systems (Textbook)', category:'Textbooks', price:4500, grad:'pb-grad-1',
+    desc:'Silberschatz, 9th edition. Good condition, minimal highlights.' },
+  { id:'m2', title:'Casio FX-991ES Scientific Calculator', category:'Electronics', price:7000, grad:'pb-grad-3',
+    desc:'Barely used, original case included.' },
+  { id:'m3', title:'Rechargeable LED Reading Lamp', category:'Hostel Essentials', price:5500, grad:'pb-grad-2',
+    desc:'USB rechargeable, perfect for late-night reading.' },
+  { id:'m4', title:'CSC301 Past Questions Bundle (Printed)', category:'Academic Materials', price:1200, grad:'pb-grad-4',
+    desc:'Compiled and printed past questions, 2019–2024.' },
+  { id:'m5', title:'Weekly Hostel Cleaning Service', category:'Services', price:2000, grad:'pb-grad-1',
+    desc:'Weekly room cleaning within Awka campus hostels.' },
+  { id:'m6', title:'Foldable Mini Reading Table', category:'Hostel Essentials', price:8000, grad:'pb-grad-3',
+    desc:'Lightweight wooden table, lightly used.' },
+  { id:'m7', title:'Flyer & Poster Design Gig', category:'Services', price:3000, grad:'pb-grad-2',
+    desc:'Custom flyer and poster design, 24-hour turnaround.' },
+  { id:'m8', title:'Power Bank 20,000mAh', category:'Electronics', price:6500, grad:'pb-grad-4',
+    desc:'Fast charging, includes original cable.' },
+];
+
+/* =================================================================
+   ICONS
+   ================================================================= */
+const ICONS = {
+  pin:'<path d="M12 21s7-7.5 7-12a7 7 0 1 0-14 0c0 4.5 7 12 7 12z"/><circle cx="12" cy="9" r="2.4"/>',
+  book:'<path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5z"/><path d="M4 18.5V5.5"/>',
+  users:'<circle cx="9" cy="8" r="3"/><path d="M2 20c0-3.3 3.1-6 7-6s7 2.7 7 6"/><circle cx="17" cy="9" r="2.3"/><path d="M16 13.2c2.4.6 4 2.4 4 4.8"/>',
+  store:'<path d="M4 9l1-5h14l1 5"/><path d="M4 9h16v10H4z"/><path d="M9 19v-5h6v5"/>',
+  bot:'<rect x="5" y="8" width="14" height="11" rx="3"/><circle cx="9.5" cy="13.5" r="1.1"/><circle cx="14.5" cy="13.5" r="1.1"/><path d="M12 8V4"/>',
+  building:'<path d="M5 21V6l7-3 7 3v15"/><path d="M9 21v-6h6v6"/>',
+  search:'<circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/>',
+  upload:'<path d="M12 17V5M6 11l6-6 6 6M4 19h16"/>',
+  star:'<path d="M12 3l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4-3.1L6.6 19.3l1.3-6L3.3 9.2l6.1-.6z"/>',
+  compass:'<circle cx="12" cy="12" r="9"/><path d="M15 9l-2 6-2-6 6 0-2 6z"/>',
+  arrow:'<path d="M5 12h14M13 6l6 6-6 6"/>',
+  close:'<path d="M6 6l12 12M18 6L6 18"/>',
+  mail:'<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/>',
+  clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/>',
+  tag:'<path d="M3 11l8-8h6v6l-8 8z"/><circle cx="14.5" cy="6.5" r="1.2"/>',
+  plus:'<path d="M12 5v14M5 12h14"/>',
+  globe:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2.5 2.5 4 5.6 4 9s-1.5 6.5-4 9c-2.5-2.5-4-5.6-4-9s1.5-6.5 4-9z"/>',
+  lock:'<rect x="5" y="11" width="14" height="9" rx="2.5"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>',
+};
+function ic(name, size){ size = size||18; return '<svg width="'+size+'" height="'+size+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'+(ICONS[name]||'')+'</svg>'; }
+
+function formatNaira(n){ return '₦' + n.toLocaleString('en-NG'); }
+function escapeHtml(s){ return (s||'').replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+/* =================================================================
+   ROUTING
+   ================================================================= */
+function showView(route){
+  if(!document.getElementById('view-'+route)) route = 'home';
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.getElementById('view-'+route).classList.add('active');
+  document.querySelectorAll('.main-nav a').forEach(a=>{
+    a.classList.toggle('active', a.dataset.route===route);
+  });
+  window.scrollTo({top:0,behavior:'auto'});
+  document.getElementById('mainNav').classList.remove('open');
+  if(route==='home') animateStats();
+}
+document.addEventListener('click', function(e){
+  const el = e.target.closest('[data-route]');
+  if(el){ e.preventDefault(); location.hash = el.dataset.route; }
+});
+window.addEventListener('hashchange', ()=> showView(location.hash.replace('#','')||'home') );
+
+/* =================================================================
+   HEADER scroll state + mobile menu
+   ================================================================= */
+window.addEventListener('scroll', ()=>{
+  document.getElementById('siteHeader').classList.toggle('scrolled', window.scrollY > 30);
+});
+document.getElementById('menuToggle').addEventListener('click', ()=>{
+  document.getElementById('mainNav').classList.toggle('open');
+});
+
+/* =================================================================
+   STATS COUNT-UP
+   ================================================================= */
+function animateStats(){
+  const targets = [campusLocations.length, academicResources.length, tutors.length, listings.length];
+  document.querySelectorAll('#heroStats .stat-num').forEach((el,i)=>{
+    const target = targets[i];
+    let cur = 0;
+    const step = Math.max(1, Math.ceil(target/30));
+    clearInterval(el._t);
+    el._t = setInterval(()=>{
+      cur += step;
+      if(cur>=target){ cur=target; clearInterval(el._t); }
+      el.textContent = cur;
+    }, 30);
+  });
+}
+
+/* =================================================================
+   CAMPUS NAVIGATION
+   ================================================================= */
+let locFilter = 'All';
+function renderLocChips(){
+  const cats = ['All', ...new Set(campusLocations.map(l=>l.category))];
+  document.getElementById('locChips').innerHTML = cats.map(c=>
+    `<button class="chip ${c===locFilter?'active':''}" onclick="setLocFilter('${c}')">${c}</button>`
+  ).join('');
+}
+function setLocFilter(c){ locFilter = c; renderLocChips(); renderLocations(); }
+function renderLocations(){
+  const q = (document.getElementById('locSearch').value || '').toLowerCase().trim();
+  const items = campusLocations.filter(l=>{
+    const matchCat = locFilter==='All' || l.category===locFilter;
+    const matchQ = !q || l.name.toLowerCase().includes(q) || l.category.toLowerCase().includes(q) || l.short.toLowerCase().includes(q);
+    return matchCat && matchQ;
+  });
+  const grid = document.getElementById('locGrid');
+  if(!items.length){
+    grid.innerHTML = emptyState('search','No locations found','Try a different search term or clear the category filter.');
+    return;
+  }
+  grid.innerHTML = items.map(l=>`
+    <div class="loc-card">
+      <div class="photo-block ${l.grad}">
+        <span class="pb-icon">${ic(l.icon,22)}</span>
+        <span>${l.category}</span>
+      </div>
+      <div class="body">
+        <span class="tag">${l.category}</span>
+        <h3>${l.name}</h3>
+        <div class="meta">${ic('pin',13)} ${l.building}</div>
+        <p class="desc">${l.short}</p>
+        <div class="actions">
+          <button class="btn btn-outline btn-sm" onclick="openLocationModal('${l.id}')">Building Info</button>
+          <a class="btn btn-navy btn-sm" target="_blank" rel="noopener" href="${mapsLink(l.name)}">Directions</a>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+function mapsLink(name){
+  return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(name + ', Nnamdi Azikiwe University, Awka');
+}
+function openLocationModal(id){
+  const l = campusLocations.find(x=>x.id===id);
+  if(!l) return;
+  openModal(`
+    <div class="modal-head"><h3>${l.name}</h3><button class="x-btn" onclick="closeModal()">${ic('close',15)}</button></div>
+    <div class="photo-block ${l.grad}"><span class="pb-icon">${ic(l.icon,24)}</span><span>${l.category}</span></div>
+    <div class="modal-info-row">${ic('building',16)} ${l.building}</div>
+    <p style="margin-top:14px;color:var(--gray-600);font-size:14.5px;line-height:1.6">${l.full}</p>
+    <p style="margin-top:14px;font-size:12px;color:var(--gray-400)">Coordinates and verified photography for this location will be added once supplied by campus administration.</p>
+    <div class="modal-actions">
+      <a class="btn btn-gold btn-block" target="_blank" rel="noopener" href="${mapsLink(l.name)}">${ic('pin',15)} Get Directions</a>
+    </div>
+  `);
+}
+
+/* =================================================================
+   ACADEMIC HUB
+   ================================================================= */
+let academicState = { facultyIdx:0, deptIdx:0, courseCode:null, tab:'notes' };
+
+function initAcademic(){
+  const fsel = document.getElementById('selFaculty');
+  fsel.innerHTML = academicData.map((f,i)=>`<option value="${i}">${f.name}</option>`).join('');
+  onFacultyChange(true);
+}
+function onFacultyChange(skipReset){
+  academicState.facultyIdx = +document.getElementById('selFaculty').value || 0;
+  const faculty = academicData[academicState.facultyIdx];
+  const dsel = document.getElementById('selDept');
+  dsel.innerHTML = faculty.departments.map((d,i)=>`<option value="${i}">${d.name}</option>`).join('');
+  onDeptChange();
+}
+function onDeptChange(){
+  academicState.deptIdx = +document.getElementById('selDept').value || 0;
+  const dept = academicData[academicState.facultyIdx].departments[academicState.deptIdx];
+  const levels = [...new Set(dept.courses.map(c=>c.level))].sort((a,b)=>a-b);
+  const lsel = document.getElementById('selLevel');
+  lsel.innerHTML = levels.map(l=>`<option value="${l}">${l} Level</option>`).join('');
+  onLevelChange();
+}
+function onLevelChange(){
+  const dept = academicData[academicState.facultyIdx].departments[academicState.deptIdx];
+  const level = +document.getElementById('selLevel').value;
+  const courses = dept.courses.filter(c=>c.level===level);
+  const csel = document.getElementById('selCourse');
+  csel.innerHTML = courses.map(c=>`<option value="${c.code}">${c.code} — ${c.title}</option>`).join('');
+  onCourseChange();
+}
+function onCourseChange(){
+  academicState.courseCode = document.getElementById('selCourse').value;
+  academicState.tab = 'notes';
+  document.getElementById('resSearch').value = '';
+  renderCoursePanel();
+}
+function getCourseInfo(code){
+  for(const f of academicData){
+    for(const d of f.departments){
+      const c = d.courses.find(c=>c.code===code);
+      if(c) return { course:c, dept:d, faculty:f };
+    }
+  }
+  return null;
+}
+function renderCoursePanel(){
+  const panel = document.getElementById('coursePanel');
+  const info = getCourseInfo(academicState.courseCode);
+  if(!info){ panel.innerHTML = emptyState('book','Select a course','Use the panel on the left to browse by faculty, department and level.'); return; }
+  const { course, dept, faculty } = info;
+  const tabsHtml = resourceTypes.map(t=>{
+    const count = academicResources.filter(r=>r.courseCode===course.code && r.type===t.id).length;
+    return `<button class="tab-btn ${academicState.tab===t.id?'active':''}" onclick="setAcademicTab('${t.id}')">${t.label} (${count})</button>`;
+  }).join('');
+  const items = academicResources.filter(r=>r.courseCode===course.code && r.type===academicState.tab);
+  panel.innerHTML = `
+    <div class="course-head">
+      <div>
+        <div class="code">${course.code}</div>
+        <div class="meta-line">${course.title} · ${course.level} Level</div>
+        <div class="meta-line">${faculty.name} → ${dept.name}</div>
+      </div>
+      <button class="btn btn-outline btn-sm" onclick="openUploadModal('${course.code}')">${ic('upload',14)} Upload to this course</button>
+    </div>
+    <div class="tab-row">${tabsHtml}</div>
+    <div>${items.length ? items.map(resourceRow).join('') : emptyState('clock','No '+resourceTypes.find(t=>t.id===academicState.tab).label.toLowerCase()+' yet','Be the first to upload one for this course.')}</div>
+  `;
+}
+function setAcademicTab(t){ academicState.tab = t; renderCoursePanel(); }
+function resourceRow(r){
+  return `
+    <div class="res-item">
+      <span class="res-ic">${ic(r.type==='announcement'?'pin':(r.type==='study'?'compass':'book'),17)}</span>
+      <div>
+        <h5>${escapeHtml(r.title)}</h5>
+        <div class="res-meta">${escapeHtml(r.uploader)} · ${r.date} · ${r.fileType}</div>
+        ${r.description? `<div class="res-desc">${escapeHtml(r.description)}</div>` : ''}
+      </div>
+      <button class="btn btn-outline btn-sm res-go" onclick="toast('Demo file — connect storage to enable real downloads.')">View</button>
+    </div>
+  `;
+}
+function onResourceSearch(){
+  const q = document.getElementById('resSearch').value.toLowerCase().trim();
+  const panel = document.getElementById('coursePanel');
+  if(!q){ renderCoursePanel(); return; }
+  const results = academicResources.filter(r =>
+    r.title.toLowerCase().includes(q) || r.courseCode.toLowerCase().includes(q) || (r.description||'').toLowerCase().includes(q)
+  );
+  panel.innerHTML = `
+    <div class="course-head"><div><div class="code" style="font-size:19px">Search results</div><div class="meta-line">${results.length} resource${results.length===1?'':'s'} matching “${escapeHtml(q)}”</div></div></div>
+    <div>${results.length ? results.map(r=>`<div style="margin-bottom:4px"><span class="tag" style="margin-bottom:8px">${r.courseCode}</span>${resourceRow(r)}</div>`).join('') : emptyState('search','No matches','Try a course code like CSC301, or a keyword from a resource title.')}</div>
+  `;
+}
+function emptyState(icon,title,sub){
+  return `<div class="empty-state"><div class="ic-box">${ic(icon,24)}</div><h4>${title}</h4><p>${sub}</p></div>`;
+}
+
+/* Upload modal */
+function openUploadModal(presetCourse){
+  const courseOptions = academicData.flatMap(f=>f.departments.flatMap(d=>d.courses.map(c=>({code:c.code,label:c.code+' — '+c.title}))));
+  openModal(`
+    <div class="modal-head"><h3>Upload Resource</h3><button class="x-btn" onclick="closeModal()">${ic('close',15)}</button></div>
+    <form onsubmit="submitUpload(event)">
+      <div class="modal-row">
+        <div class="form-group"><label>Faculty</label><input type="text" id="upFaculty" placeholder="e.g. Faculty of Physical Sciences" required></div>
+        <div class="form-group"><label>Department</label><input type="text" id="upDept" placeholder="e.g. Computer Science" required></div>
+      </div>
+      <div class="modal-row">
+        <div class="form-group"><label>Level</label><input type="text" id="upLevel" placeholder="e.g. 300 Level" required></div>
+        <div class="form-group"><label>Course Code</label>
+          <select id="upCourse" required>${courseOptions.map(c=>`<option value="${c.code}" ${c.code===presetCourse?'selected':''}>${c.label}</option>`).join('')}</select>
+        </div>
+      </div>
+      <div class="form-group"><label>Resource Type</label>
+        <select id="upType">${resourceTypes.map(t=>`<option value="${t.id}">${t.label}</option>`).join('')}</select>
+      </div>
+      <div class="form-group"><label>Title</label><input type="text" id="upTitle" placeholder="e.g. Week 5 Lecture Notes" required></div>
+      <div class="form-group"><label>Description</label><textarea id="upDesc" placeholder="Briefly describe this resource"></textarea></div>
+      <div class="form-group"><label>File</label><input type="file" id="upFile"></div>
+      <div class="modal-actions"><button type="submit" class="btn btn-gold btn-block">${ic('upload',15)} Submit Resource</button></div>
+    </form>
+  `);
+}
+function submitUpload(e){
+  e.preventDefault();
+  const code = document.getElementById('upCourse').value;
+  const type = document.getElementById('upType').value;
+  const title = document.getElementById('upTitle').value.trim();
+  const desc = document.getElementById('upDesc').value.trim();
+  const fileInput = document.getElementById('upFile');
+  const fileType = fileInput.files[0] ? fileInput.files[0].name.split('.').pop().toUpperCase() : 'PDF';
+  academicResources.unshift(R(code, type, title, 'You', new Date().toISOString().slice(0,10), fileType, desc));
+  closeModal();
+  toast('Resource uploaded (demo) — visible in the course resource list.');
+  document.getElementById('selCourse').value = code;
+  onCourseChange();
+}
+
+/* =================================================================
+   SKILL EXCHANGE
+   ================================================================= */
+let skillFilter = 'All';
+function renderSkillChips(){
+  document.getElementById('skillChips').innerHTML = ['All', ...skillCategories].map(c=>
+    `<button class="chip ${c===skillFilter?'active':''}" onclick="setSkillFilter('${c}')">${c}</button>`
+  ).join('');
+}
+function setSkillFilter(c){ skillFilter=c; renderSkillChips(); renderTutors(); }
+function renderReco(){
+  const top = [...tutors].sort((a,b)=>b.rating-a.rating).slice(0,3);
+  document.getElementById('recoStrip').innerHTML = top.map(t=>`
+    <div class="reco-card">
+      <div class="tutor-top">
+        <span class="avatar ${t.av}">${initials(t.name)}</span>
+        <div><h3>${t.name}</h3><div class="skill">${t.skill}</div></div>
+      </div>
+      <div class="rating">${ic('star',13)} ${t.rating.toFixed(1)} <span class="count">(${t.sessions} sessions)</span></div>
+      <p class="bio">${t.bio}</p>
+      <div class="tutor-stats"><div><strong>${t.sessions}</strong>Sessions</div><div><strong>${t.skill}</strong>Specialty</div></div>
+    </div>
+  `).join('');
+}
+function initials(name){ return name.split(' ').map(n=>n[0]).slice(0,2).join(''); }
+function renderTutors(){
+  const q = (document.getElementById('tutorSearch').value||'').toLowerCase().trim();
+  const items = tutors.filter(t=>{
+    const matchCat = skillFilter==='All' || t.skill===skillFilter;
+    const matchQ = !q || t.name.toLowerCase().includes(q) || t.skill.toLowerCase().includes(q) || t.bio.toLowerCase().includes(q);
+    return matchCat && matchQ;
+  });
+  const grid = document.getElementById('tutorGrid');
+  if(!items.length){ grid.innerHTML = emptyState('users','No tutors found','Try another skill category or search term.'); return; }
+  grid.innerHTML = items.map(t=>`
+    <div class="tutor-card">
+      <div class="tutor-top">
+        <span class="avatar ${t.av}">${initials(t.name)}</span>
+        <div><h3>${t.name}</h3><div class="skill">${t.skill}</div></div>
+      </div>
+      <div class="rating">${ic('star',13)} ${t.rating.toFixed(1)} <span class="count">(${t.sessions} sessions)</span></div>
+      <p class="bio">${t.bio}</p>
+      <div class="tutor-stats"><div><strong>${t.sessions}</strong>Sessions</div><div><strong>4.9★</strong>Reliability</div></div>
+      <div class="actions"><button class="btn btn-navy btn-sm btn-block" onclick="openContactModal('tutor','${t.id}')">${ic('mail',14)} Contact Tutor</button></div>
+    </div>
+  `).join('');
+}
+function openContactModal(kind,id){
+  let title, sub, name;
+  if(kind==='tutor'){ const t=tutors.find(x=>x.id===id); title='Contact '+t.name; sub=t.skill+' Tutor'; name=t.name; }
+  else { const m=listings.find(x=>x.id===id); title='Contact Seller'; sub=m.title; name='the seller'; }
+  const emailHandle = name.toLowerCase().replace(/[^a-z\s]/g,'').trim().split(' ').join('.') || 'student';
+  openModal(`
+    <div class="modal-head"><h3>${title}</h3><button class="x-btn" onclick="closeModal()">${ic('close',15)}</button></div>
+    <p style="color:var(--gray-600);font-size:14px;margin-bottom:18px">${sub}</p>
+    <div class="modal-info-row">${ic('mail',16)} ${emailHandle}@unizik.edu.ng</div>
+    <p style="margin-top:14px;font-size:12.5px;color:var(--gray-400)">In-app messaging is a planned feature. For now, reach out directly via campus email to connect.</p>
+    <div class="modal-actions"><a class="btn btn-gold btn-block" href="mailto:${emailHandle}@unizik.edu.ng">${ic('mail',15)} Send Email</a></div>
+  `);
+}
+
+/* =================================================================
+   MARKETPLACE
+   ================================================================= */
+let marketFilter = 'All';
+function renderMarketChips(){
+  document.getElementById('marketChips').innerHTML = ['All', ...marketCategories].map(c=>
+    `<button class="chip ${c===marketFilter?'active':''}" onclick="setMarketFilter('${c}')">${c}</button>`
+  ).join('');
+}
+function setMarketFilter(c){ marketFilter=c; renderMarketChips(); renderListings(); }
+function renderListings(){
+  const q = (document.getElementById('marketSearch').value||'').toLowerCase().trim();
+  const items = listings.filter(l=>{
+    const matchCat = marketFilter==='All' || l.category===marketFilter;
+    const matchQ = !q || l.title.toLowerCase().includes(q) || l.desc.toLowerCase().includes(q);
+    return matchCat && matchQ;
+  });
+  const grid = document.getElementById('marketGrid');
+  if(!items.length){ grid.innerHTML = emptyState('store','No listings found','Try another category, or be the first to list one.'); return; }
+  grid.innerHTML = items.map(l=>`
+    <div class="market-card">
+      <div class="photo-block ${l.grad}"><span class="pb-icon">${ic('store',18)}</span></div>
+      <div class="body">
+        <span class="tag">${l.category}</span>
+        <h3>${escapeHtml(l.title)}</h3>
+        <div class="price">${formatNaira(l.price)}</div>
+        <p class="desc">${escapeHtml(l.desc)}</p>
+        <div class="actions"><button class="btn btn-navy btn-sm btn-block" onclick="openContactModal('listing','${l.id}')">${ic('mail',13)} Contact Seller</button></div>
+      </div>
+    </div>
+  `).join('');
+}
+function openSellModal(){
+  openModal(`
+    <div class="modal-head"><h3>Sell an Item</h3><button class="x-btn" onclick="closeModal()">${ic('close',15)}</button></div>
+    <form onsubmit="submitListing(event)">
+      <div class="form-group"><label>Title</label><input type="text" id="selTitle" placeholder="e.g. Used Reading Lamp" required></div>
+      <div class="modal-row">
+        <div class="form-group"><label>Price (₦)</label><input type="number" id="selPrice" placeholder="5000" required></div>
+        <div class="form-group"><label>Category</label><select id="selCategory">${marketCategories.map(c=>`<option>${c}</option>`).join('')}</select></div>
+      </div>
+      <div class="form-group"><label>Description</label><textarea id="selDesc" placeholder="Condition, age, pickup location…"></textarea></div>
+      <div class="form-group"><label>Photo</label><input type="file" id="selPhoto" accept="image/*"></div>
+      <div class="modal-actions"><button type="submit" class="btn btn-gold btn-block">${ic('plus',15)} List Item</button></div>
+    </form>
+  `);
+}
+function submitListing(e){
+  e.preventDefault();
+  const title = document.getElementById('selTitle').value.trim();
+  const price = +document.getElementById('selPrice').value || 0;
+  const category = document.getElementById('selCategory').value;
+  const desc = document.getElementById('selDesc').value.trim();
+  const grads = ['pb-grad-1','pb-grad-2','pb-grad-3','pb-grad-4'];
+  listings.unshift({ id:'m'+(listings.length+1+Math.random()), title, category, price, desc, grad:grads[Math.floor(Math.random()*4)] });
+  closeModal();
+  toast('Listing published (demo) — visible on the marketplace board.');
+  marketFilter='All'; renderMarketChips(); renderListings();
+}
+
+/* =================================================================
+   MODAL + TOAST
+   ================================================================= */
+function openModal(html){
+  document.getElementById('modalBody').innerHTML = html;
+  document.getElementById('modalOverlay').classList.add('open');
+}
+function closeModal(){ document.getElementById('modalOverlay').classList.remove('open'); }
+let toastTimer;
+function toast(msg){
+  const t = document.getElementById('toast');
+  document.getElementById('toastMsg').textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>t.classList.remove('show'), 3200);
+}
+
+/* =================================================================
+   SMART CAMPUS ASSISTANT
+   -----------------------------------------------------------------
+   Structured, dataset-driven assistant. No external AI API is
+   called — every response is derived from campusLocations,
+   academicResources, tutors and listings above. This function is
+   the single integration point for a future LLM-backed assistant:
+   replace matchQuery()'s body with an API call and keep the same
+   render contract (return {text, cards:[...], suggestions:[...]}).
+   ================================================================= */
+let assistantStarted = false;
+function openAssistant(){
+  document.getElementById('assistantPanel').classList.add('open');
+  if(!assistantStarted){ startAssistant(); assistantStarted = true; }
+}
+function closeAssistant(){ document.getElementById('assistantPanel').classList.remove('open'); }
+function startAssistant(){
+  addBotMessage("Hi! I'm the Smart Campus Assistant. I can help you find buildings, course resources, tutors or marketplace listings — ask me anything.", null,
+    ['Where is the library?','Find graphic design tutors','Show CSC301 resources','Sell a textbook']);
+}
+function addUserMessage(text){
+  const body = document.getElementById('apBody');
+  body.insertAdjacentHTML('beforeend', `<div class="msg user"><div class="bubble">${escapeHtml(text)}</div></div>`);
+  body.scrollTop = body.scrollHeight;
+}
+function addBotMessage(text, card, suggestions){
+  const body = document.getElementById('apBody');
+  let html = `<div class="msg bot"><div class="bubble">${text}</div>`;
+  if(card) html += card;
+  if(suggestions && suggestions.length){
+    html += `<div class="chip-suggest">${suggestions.map(s=>`<button onclick="askAssistant('${s.replace(/'/g,"\\'")}')">${s}</button>`).join('')}</div>`;
+  }
+  html += `</div>`;
+  body.insertAdjacentHTML('beforeend', html);
+  body.scrollTop = body.scrollHeight;
+}
+function sendAssistantMessage(){
+  const input = document.getElementById('apInput');
+  const text = input.value.trim();
+  if(!text) return;
+  input.value = '';
+  askAssistant(text);
+}
+function askAssistant(text){
+  addUserMessage(text);
+  setTimeout(()=> handleAssistantQuery(text), 350);
+}
+function handleAssistantQuery(raw){
+  const q = raw.toLowerCase();
+
+  // 1. Course code match e.g. CSC301 / csc 301
+  const codeMatch = raw.toUpperCase().replace(/\s+/g,'').match(/[A-Z]{3}\d{3}/);
+  if(codeMatch){
+    const code = codeMatch[0];
+    const items = academicResources.filter(r=>r.courseCode===code);
+    if(items.length){
+      const info = getCourseInfo(code);
+      const card = `<div class="msg-card"><span class="ic-box">${ic('book',18)}</span>
+        <div><div class="mc-tt">${code}${info?' — '+info.course.title:''}</div>
+        <div class="mc-sub">${items.length} resource${items.length===1?'':'s'} available across notes, assignments and past questions.</div>
+        <a class="mc-link" href="#academic" data-route="academic" onclick="closeAssistant()">Open in Academic Hub ${ic('arrow',12)}</a></div></div>`;
+      addBotMessage(`Here's what I found for <strong>${code}</strong>:`, card, ['Show another course','Find a tutor','Where is the library?']);
+      return;
+    }
+  }
+
+  // 2. Location match
+  const loc = campusLocations.find(l => q.includes(l.name.toLowerCase()) || l.aliases.some(a=>q.includes(a)));
+  if(loc){
+    const card = `<div class="msg-card"><span class="ic-box">${ic(loc.icon,18)}</span>
+      <div><div class="mc-tt">${loc.name}</div><div class="mc-sub">${loc.short}</div>
+      <a class="mc-link" href="${mapsLink(loc.name)}" target="_blank" rel="noopener">Get Directions ${ic('arrow',12)}</a></div></div>`;
+    addBotMessage(`Found it — the <strong>${loc.name}</strong> is in ${loc.building}.`, card, ['Show building photo','Find a different location','Show CSC301 resources']);
+    return;
+  }
+
+  // 3. Skill / tutor match
+  const skillHit = skillCategories.find(s => q.includes(s.toLowerCase()));
+  if(skillHit || q.includes('tutor') || q.includes('teach') || q.includes('mentor')){
+    const matched = tutors.filter(t => !skillHit || t.skill===skillHit).sort((a,b)=>b.rating-a.rating).slice(0,2);
+    if(matched.length){
+      const cards = matched.map(t=>`<div class="msg-card"><span class="ic-box">${ic('users',18)}</span>
+        <div><div class="mc-tt">${t.name} — ${t.skill}</div><div class="mc-sub">${t.rating.toFixed(1)}★ · ${t.sessions} sessions taught</div>
+        <a class="mc-link" href="#skills" data-route="skills" onclick="closeAssistant()">View profile ${ic('arrow',12)}</a></div></div>`).join('');
+      addBotMessage(skillHit ? `Top-rated ${skillHit} tutors on campus:` : `Here are a couple of well-rated peer tutors:`, cards, ['Find graphic design tutors','Show CSC301 resources','Sell a textbook']);
+      return;
+    }
+  }
+
+  // 4. Marketplace match
+  const catHit = marketCategories.find(c => q.includes(c.toLowerCase()) || q.includes(c.toLowerCase().slice(0,-1)));
+  if(catHit || q.includes('sell') || q.includes('buy') || q.includes('marketplace') || q.includes('listing')){
+    const matched = listings.filter(l => !catHit || l.category===catHit).slice(0,2);
+    if(matched.length){
+      const cards = matched.map(l=>`<div class="msg-card"><span class="ic-box">${ic('store',18)}</span>
+        <div><div class="mc-tt">${l.title}</div><div class="mc-sub">${formatNaira(l.price)} · ${l.category}</div>
+        <a class="mc-link" href="#marketplace" data-route="marketplace" onclick="closeAssistant()">View listing ${ic('arrow',12)}</a></div></div>`).join('');
+      addBotMessage(catHit ? `Active ${catHit.toLowerCase()} listings:` : `A few things currently listed on the marketplace:`, cards, ['Sell a textbook','Find graphic design tutors','Where is the library?']);
+      return;
+    } else if(q.includes('sell')){
+      addBotMessage(`You can list an item directly from the Marketplace page — tap "Sell an Item" and fill in the details.`, null, ['Open Marketplace']);
+      return;
+    }
+  }
+
+  // 5. Greeting
+  if(/^(hi|hello|hey|good morning|good afternoon)/.test(q)){
+    addBotMessage("Hello! Ask me to find a building, a course's resources, a tutor, or something on the marketplace.", null,
+      ['Where is the library?','Find graphic design tutors','Show CSC301 resources']);
+    return;
+  }
+
+  // Fallback
+  addBotMessage("I couldn't find an exact match in the current campus dataset. Try a building name, a course code like CSC301, a skill like Graphic Design, or a marketplace category.", null,
+    ['Where is the Faculty of Engineering?','Find graphic design tutors','Show CSC301 resources']);
+}
+
+/* =================================================================
+   PRELOADER
+   ================================================================= */
+function runPreloader(){
+  const word = "UNIZIK";
+  const el = document.getElementById('plWord');
+  el.innerHTML = word.split('').map((ch,i)=>`<span style="animation-delay:${.5 + i*0.06}s">${ch}</span>`).join('');
+  const minShow = 2200;
+  const start = Date.now();
+  const finish = () => {
+    const elapsed = Date.now() - start;
+    const wait = Math.max(0, minShow - elapsed);
+    setTimeout(()=>{
+      const pl = document.getElementById('preloader');
+      pl.classList.add('fade-out');
+      setTimeout(()=> pl.remove(), 650);
+    }, wait);
+  };
+  if(document.readyState === 'complete') finish();
+  else window.addEventListener('load', finish);
+}
+runPreloader();
+
+/* =================================================================
+   AUTH / PROFILE
+   -----------------------------------------------------------------
+   Demo-only auth: accounts are kept in localStorage so the flow is
+   fully functional in the browser with no backend. Swap storeUsers /
+   storeSession for real API calls (e.g. fetch('/api/auth/...')) to
+   go to production — the surrounding UI logic stays the same.
+   ================================================================= */
+const USERS_KEY = 'uniSmartCampus_users';
+const SESSION_KEY = 'uniSmartCampus_session';
+let authMode = 'login';
+
+function loadUsers(){ try{ return JSON.parse(localStorage.getItem(USERS_KEY)) || {}; }catch(e){ return {}; } }
+function saveUsers(u){ localStorage.setItem(USERS_KEY, JSON.stringify(u)); }
+function loadSession(){ try{ return JSON.parse(localStorage.getItem(SESSION_KEY)); }catch(e){ return null; } }
+function saveSession(s){ localStorage.setItem(SESSION_KEY, JSON.stringify(s)); }
+function clearSession(){ localStorage.removeItem(SESSION_KEY); }
+
+function setAuthMode(mode){
+  authMode = mode;
+  document.getElementById('tabLogin').classList.toggle('active', mode==='login');
+  document.getElementById('tabSignup').classList.toggle('active', mode==='signup');
+  document.getElementById('nameField').style.display = mode==='signup' ? 'block' : 'none';
+  document.getElementById('authTitle').textContent = mode==='login' ? 'Welcome back' : 'Create your account';
+  document.getElementById('authSubtitle').textContent = mode==='login' ? 'Sign in to your Smart Campus account' : 'Join the UNIZIK Smart Campus community';
+  document.getElementById('authSubmitBtn').innerHTML = mode==='login'
+    ? `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg> Sign In`
+    : `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg> Create Account`;
+  document.getElementById('rememberRow').innerHTML = mode==='login'
+    ? `<label><input type="checkbox" id="authRemember" checked> Remember me</label><span>New here? <a href="#" onclick="setAuthMode('signup');return false;" style="color:var(--gold-600);font-weight:700">Create an account</a></span>`
+    : `<label style="visibility:hidden"><input type="checkbox"> spacer</label><span>Already have an account? <a href="#" onclick="setAuthMode('login');return false;" style="color:var(--gold-600);font-weight:700">Sign in</a></span>`;
+  document.getElementById('authSwitch').innerHTML = mode==='login'
+    ? `Don't have an account? <a href="#" onclick="setAuthMode('signup');return false;">Create one</a>`
+    : `Already have an account? <a href="#" onclick="setAuthMode('login');return false;">Sign in</a>`;
+  hideAuthErr();
+}
+function showAuthErr(msg){
+  const e = document.getElementById('authErr');
+  e.textContent = msg;
+  e.classList.add('show');
+}
+function hideAuthErr(){ document.getElementById('authErr').classList.remove('show'); }
+
+function submitAuth(e){
+  e.preventDefault();
+  hideAuthErr();
+  const email = document.getElementById('authEmail').value.trim().toLowerCase();
+  const password = document.getElementById('authPassword').value;
+  const name = document.getElementById('authName').value.trim();
+  const users = loadUsers();
+
+  if(authMode === 'signup'){
+    if(!name){ showAuthErr('Please enter your full name.'); return; }
+    if(users[email]){ showAuthErr('An account with this email already exists. Try signing in instead.'); return; }
+    users[email] = { name, email, password, method:'Email', joined: Date.now() };
+    saveUsers(users);
+    saveSession({ email, remember:true });
+    toast('Account created — welcome to Smart Campus!');
+    enterProfile();
+  } else {
+    const u = users[email];
+    if(!u || u.password !== password){ showAuthErr('Incorrect email or password.'); return; }
+    saveSession({ email, remember: document.getElementById('authRemember') ? document.getElementById('authRemember').checked : true });
+    toast('Signed in successfully.');
+    enterProfile();
+  }
+}
+
+function googleAuth(){
+  // Demo simulation of a Google OAuth round trip. In production this
+  // calls Google's Identity Services SDK and verifies the ID token
+  // server-side, then creates/loads the matching user record.
+  const email = 'student.google@unizik.edu.ng';
+  const users = loadUsers();
+  if(!users[email]){
+    users[email] = { name:'UNIZIK Student', email, method:'Google', joined: Date.now() };
+    saveUsers(users);
+  }
+  saveSession({ email, remember:true });
+  toast('Signed in with Google.');
+  enterProfile();
+}
+
+function enterProfile(){
+  hideAuthErr();
+  document.getElementById('authForm').reset();
+  renderProfileState();
+  location.hash = 'profile';
+  showView('profile');
+}
+
+function logoutUser(){
+  clearSession();
+  toast('Signed out.');
+  renderProfileState();
+  setAuthMode('login');
+  location.hash = 'profile';
+  showView('profile');
+}
+
+function getCurrentUser(){
+  const sess = loadSession();
+  if(!sess) return null;
+  const users = loadUsers();
+  return users[sess.email] || null;
+}
+
+function renderProfileState(){
+  const user = getCurrentUser();
+  const authShell = document.getElementById('authShell');
+  const profileShell = document.getElementById('profileShell');
+  const navBtn = document.getElementById('navProfileBtn');
+
+  if(user){
+    authShell.style.display = 'none';
+    profileShell.style.display = 'block';
+
+    const av = initials(user.name || user.email).toUpperCase() || 'U';
+    document.getElementById('pAvatar').textContent = av;
+    document.getElementById('pName').textContent = user.name || 'Smart Campus Student';
+    document.getElementById('pEmail').innerHTML = `${ic('mail',13)} ${escapeHtml(user.email)}`;
+    document.getElementById('pMethodWrap').innerHTML = `<span class="auth-method-badge">${ic(user.method==='Google'?'globe':'lock',12)} ${user.method} Account</span>`;
+
+    document.getElementById('rowName').textContent = user.name || '—';
+    document.getElementById('rowEmail').textContent = user.email;
+    document.getElementById('rowMethod').textContent = user.method + ' sign-in';
+    const joined = new Date(user.joined || Date.now());
+    document.getElementById('rowSince').textContent = joined.toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
+    const days = Math.max(1, Math.floor((Date.now()-joined.getTime())/86400000));
+    document.getElementById('pJoinedDays').textContent = days;
+    document.getElementById('pSavedCount').textContent = Math.min(listings.length,3);
+    document.getElementById('pListingCount').textContent = 0;
+
+    navBtn.innerHTML = `<span class="nav-avatar">${av}</span>`;
+    navBtn.style.padding = '3px';
+    navBtn.style.background = 'transparent';
+    navBtn.style.border = 'none';
+  } else {
+    authShell.style.display = 'flex';
+    profileShell.style.display = 'none';
+    navBtn.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.6"/><path d="M5 20c0-3.6 3.1-6.5 7-6.5s7 2.9 7 6.5"/></svg> Sign In`;
+    navBtn.style.padding = '';
+    navBtn.style.background = 'rgba(255,255,255,.08)';
+    navBtn.style.border = '1.5px solid rgba(255,255,255,.25)';
+  }
+}
+
+/* =================================================================
+   INIT
+   ================================================================= */
+function init(){
+  renderLocChips(); renderLocations();
+  initAcademic();
+  renderSkillChips(); renderReco(); renderTutors();
+  renderMarketChips(); renderListings();
+  renderProfileState();
+  showView(location.hash.replace('#','') || 'home');
+}
+init();
+</script>
+</body>
+</html>
